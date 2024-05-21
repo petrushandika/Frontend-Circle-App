@@ -1,0 +1,71 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(0, 0%, 10%);
+}
+
+.card-container {
+  width: 100%;
+  max-width: 700px;
+  height: 100%;
+  color: #fff;
+}
+
+.card-display {
+  display: flex;
+}
+
+.card-image img {
+  margin-right: 1rem;
+  width: 2.5rem;
+  border-radius: 50%;
+}
+
+.card-user {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-name {
+  display: flex;
+  gap: .5rem;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.username,
+.time,
+.like,
+.reply {
+  color: hsl(0, 0%, 70%);
+}
+
+.content {
+  font-weight: 300;
+}
+
+.icon {
+  margin-right: .5rem;
+}
+
+.card-opinion {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+p {
+  font-size: 0.9rem;
+}
+
+hr {
+  margin: 1rem 0;
+  border: 0;
+  height: 1px;
+  background-color: hsl(0, 0%, 70%);
+}
