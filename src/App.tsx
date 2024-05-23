@@ -1,8 +1,8 @@
-import Home from "./pages/Home";
+import HomePages from "./pages/home/HomePages";
 
 function App() {
   return (
-    <Home />
+    <HomePages />
   );
 }
 
