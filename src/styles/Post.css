@@ -3,12 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-
-.post-heading h1 {
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: 500;
+  border-bottom: 1px solid gray;
 }
 
 .post-detail {
@@ -23,9 +18,9 @@
 }
 
 .post-card {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .post-user {
@@ -44,27 +39,32 @@
 }
 
 .post-text {
-    color: #fff;
-    font-weight: 300;
+  color: #fff;
+  font-weight: 300;
+}
+
+.post-imageUrl img {
+  width: 100%;
+  border-radius: 0.5rem;
 }
 
 .post-reaction {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .icon {
-    color: #fff;
+  color: #fff;
 }
 
 .like,
 .comment {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .like span,
 .comment span {
-    color: gray;
-    margin-left: .5rem;
+  color: gray;
+  margin-left: 0.5rem;
 }

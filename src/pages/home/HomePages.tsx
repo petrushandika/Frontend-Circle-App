@@ -1,5 +1,5 @@
 import Sidebar from "../../components/common/Sidebar"
-import Posts from "../../components/common/Posts"
+import PostList from "../../components/common/PostList"
 import RightPanel from "../../components/common/RightPanel"
 import "../../styles/HomePages.css"
 
@@ -11,7 +11,7 @@ const HomePages = () => {
           <Sidebar/>
         </div>
         <div>
-          <Posts/>
+          <PostList/>
         </div>
         <div>
           <RightPanel/>

@@ -1,8 +1,9 @@
 import Card from "../common/Card";
+import "../../styles/RightPanel.css"
 
 const RightPanel = () => {
   return (
-    <div>
+    <div className="rightpanel-container">
       <div>
         <Card />
       </div>

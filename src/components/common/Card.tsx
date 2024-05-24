@@ -1,4 +1,4 @@
-import "../../styles/Card.css"
+import "../../styles/Card.css";
 
 const Card = () => {
   return (
@@ -8,7 +8,7 @@ const Card = () => {
       </div>
       <div className="card-content">
         <div className="card-image">
-          <img src="../../../public/images/elizabeth.jpeg" alt="" />
+          <img src="../../public/images/sunset.jpg" alt="" />
         </div>
         <div className="card-button">
           <button>
