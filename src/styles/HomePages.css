@@ -1,8 +1,0 @@
-.homepages-container {
-    width: 100%;
-}
-
-.homepages-grid {
-    display: grid;
-    grid-template-columns: 20% 50% 35%;
-}

@@ -1,7 +1,7 @@
-import { FC } from "react";
+import React from "react";
+import { Flex, Avatar, Text, Image, HStack } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faComment } from "@fortawesome/free-regular-svg-icons";
-import "../../styles/Post.css";
 
 interface PostProps {
   image: string;
@@ -14,7 +14,7 @@ interface PostProps {
   reply: number;
 }
 
-const Post: FC<PostProps> = ({
+const Post: React.FC<PostProps> = ({
   image,
   name,
   tag,
@@ -25,40 +25,34 @@ const Post: FC<PostProps> = ({
   reply,
 }) => {
   return (
-    <div className="post-container">
-      <div className="post-content">
-        <div className="post-detail">
-          <div className="post-image">
-            <img src={image} alt="..." />
-          </div>
-          <div className="post-card">
-            <div className="post-user">
-              <p className="name">{name}</p>
-              <span className="tag">@{tag}</span>
-              <span className="time">• {time}</span>
-            </div>
-            <div className="post-text">
-              <p>{content}</p>
-            </div>
-            {imageUrl && (
-              <div className="post-imageUrl">
-                <img src={imageUrl} alt="..." />
-              </div>
-            )}
-            <div className="post-reaction">
-              <div className="like">
-                <FontAwesomeIcon className="icon" icon={faHeart} />
-                <span>{like}</span>
-              </div>
-              <div className="comment">
-                <FontAwesomeIcon className="icon" icon={faComment} />
-                <span>{reply}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Flex color="#fff" justifyContent="center" p={5} border="1px solid #3F3F3F">
+      <Avatar src={image} />
+      <Flex flexDir="column" ml={3}>
+        <HStack spacing={2} align="center">
+          <Text fontWeight="500">{name}</Text>
+          <Text fontWeight="300" color="#909090">
+            @{tag}
+          </Text>
+          <Text fontWeight="300" color="#909090">
+            • {time}
+          </Text>
+        </HStack>
+        <Text mt={2} fontWeight="300">
+          {content}
+        </Text>
+        {imageUrl && <Image src={imageUrl} mt={2} borderRadius="md" />}
+        <HStack mt={2} spacing={4}>
+          <HStack alignItems="center">
+            <FontAwesomeIcon icon={faHeart} />
+            <Text>{like}</Text>
+          </HStack>
+          <HStack alignItems="center">
+            <FontAwesomeIcon icon={faComment} />
+            <Text>{reply}</Text>
+          </HStack>
+        </HStack>
+      </Flex>
+    </Flex>
   );
 };
 

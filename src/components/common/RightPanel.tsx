@@ -1,13 +1,24 @@
-import Card from "../common/Card";
-import "../../styles/RightPanel.css"
+import ProfileCard from "./ProfileCard";
+import SuggestCard from "./SuggestCard";
+import DetailCard from "./DetailCard";
+import { VStack } from "@chakra-ui/react";
 
 const RightPanel = () => {
   return (
-    <div className="rightpanel-container">
-      <div>
-        <Card />
-      </div>
-    </div>
+    <VStack
+      p={5}
+      position="fixed"
+      h="100%"
+      overflowY="auto"
+      right={0}
+      top={0}
+    >
+      <VStack spacing={6}>
+        <ProfileCard />
+        <SuggestCard />
+        <DetailCard />
+      </VStack>
+    </VStack>
   );
 };
 
