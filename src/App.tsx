@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
-} from "react-router-dom";
-import RootLayout from "./layout/RootLayout";
-import HomePages from "./pages/home/HomePages";
+} from 'react-router-dom';
+import RootLayout from './layout/RootLayout';
+import HomePages from './pages/home/HomePages';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

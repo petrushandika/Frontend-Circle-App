@@ -19,8 +19,11 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     <Flex mt={15} flexDir="column" w="100%">
       <Menu placement="right">
         <Link
-          p={3}
-          borderRadius={8}
+          py={3}
+          px={1}
+          display="flex"
+          alignItems="center"
+          borderRadius={25}
           _hover={{ textDecoration: "none", backgroundColor: "#04A51E" }}
           w={navSize === "large" ? "100%" : undefined}
         >

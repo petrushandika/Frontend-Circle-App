@@ -29,11 +29,14 @@ export default function Sidebar() {
         <SidebarItem navSize={navSize} icon={FiUsers} title="Follows" />
         <SidebarItem navSize={navSize} icon={FiUser} title="Profile" />
         <Button
+          h="2.8rem"
           mt={5}
           w="100%"
           backgroundColor="#04A51E"
-          color="fff"
-          borderRadius="25px"
+          color="#fff"
+          borderRadius={25}
+          _hover={{ textDecoration: "none", backgroundColor: "#005E0E" }}
+          fontWeight="500"
         >
           Create Post
         </Button>
@@ -54,7 +57,7 @@ export default function Sidebar() {
             ml={4}
             display={navSize === "small" ? "none" : "flex"}
           >
-            <Icon as={FiLogOut} color="#fff" />
+            <Icon as={FiLogOut} color="#fff" transform="rotate(180deg)" />
             <Link textDecoration="none">
               <Text color="#fff">Logout</Text>
             </Link>

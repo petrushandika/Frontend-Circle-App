@@ -14,16 +14,7 @@ interface PostProps {
   reply: number;
 }
 
-const Post: React.FC<PostProps> = ({
-  image,
-  name,
-  tag,
-  time,
-  content,
-  imageUrl,
-  like,
-  reply,
-}) => {
+const Post: React.FC<PostProps> = ({ image, name, tag, time, content, imageUrl, like, reply }) => {
   return (
     <Flex color="#fff" justifyContent="center" p={5} border="1px solid #3F3F3F">
       <Avatar src={image} />
@@ -37,10 +28,10 @@ const Post: React.FC<PostProps> = ({
             • {time}
           </Text>
         </HStack>
-        <Text mt={2} fontWeight="300">
-          {content}
-        </Text>
-        {imageUrl && <Image src={imageUrl} mt={2} borderRadius="md" />}
+        <Text mt={2} fontWeight="300">{content}</Text>
+        {imageUrl && (
+          <Image src={imageUrl} mt={2} borderRadius="md" />
+        )}
         <HStack mt={2} spacing={4}>
           <HStack alignItems="center">
             <FontAwesomeIcon icon={faHeart} />
