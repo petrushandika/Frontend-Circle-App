@@ -1,9 +1,8 @@
 import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Sidebar from "../components/common/sidebar/Sidebar";
-import Post from "../components/common/post/Post";
 import RightPanel from "../components/common/rightpanel/RightPanel";
-// import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
 
 const RootLayout: React.FC = () => {
   return (
@@ -12,7 +11,7 @@ const RootLayout: React.FC = () => {
         <Sidebar />
       </GridItem>
       <GridItem w="100%">
-        <Post />
+        <Outlet />
       </GridItem>
       <GridItem w="100%">
         <RightPanel />

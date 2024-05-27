@@ -9,16 +9,7 @@ import {
 
 export default function DeveloperCard() {
   return (
-    <Box
-      w={"100%"}
-      backgroundColor={"#262626"}
-      p={5}
-      borderRadius={"lg"}
-      overflow={"hidden"}
-      boxShadow={"md"}
-      maxW={"sm"}
-      h={"fit-content"}
-    >
+    <Box w={"100%"} p={5} overflow={"hidden"} maxW={"100%"} h={"fit-content"}>
       <VStack alignItems={"flex-start"}>
         <HStack color={"#FFF"} fontSize={"sm"} fontWeight={"400"}>
           <HStack>

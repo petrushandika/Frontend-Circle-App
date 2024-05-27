@@ -14,10 +14,20 @@ interface PostData {
   reply: number;
 }
 
-export default function PostItem() {
+interface PostItemProps {
+  id?: number | number[];
+}
+
+export default function PostItem({ id }: PostItemProps) {
+  const filteredData = Array.isArray(id)
+    ? data.filter((post: PostData) => id.includes(post.id))
+    : id !== undefined
+    ? data.filter((post: PostData) => post.id === id)
+    : data;
+
   return (
     <VStack width="100%" spacing={4} align="stretch">
-      {data.map((post: PostData) => (
+      {filteredData.map((post: PostData) => (
         <PostList
           key={post.id}
           image={post.image}

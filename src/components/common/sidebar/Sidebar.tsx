@@ -18,14 +18,14 @@ export default function Sidebar() {
         <Heading as="h2" size="2xl" color={"#04A51E"}>
           Circle
         </Heading>
-        <IconCard icon={FiHome} text="Home" />
-        <IconCard icon={FiSearch} text="Search" />
-        <IconCard icon={FiUsers} text="Follows" />
-        <IconCard icon={FiUser} text="Profile" />
+        <IconCard to="/" icon={FiHome} text="Home" />
+        <IconCard to="/search" icon={FiSearch} text="Search" />
+        <IconCard to="/follows" icon={FiUsers} text="Follows" />
+        <IconCard to="/profilepage" icon={FiUser} text="Profile" />
         <HoverButton text="Create Post" />
       </VStack>
       <VStack>
-        <IconCard icon={FiLogOut} text="Logout" />
+        <IconCard to="/" icon={FiLogOut} text="Logout" />
       </VStack>
     </VStack>
   );

@@ -1,4 +1,4 @@
-import { VStack, HStack, Box, Flex } from "@chakra-ui/react";
+import { Box, VStack, HStack, Flex } from "@chakra-ui/react";
 import HeaderCard from "../../common/card/HeaderCard";
 import BackgroundCardImage from "../../common/card/BackgroundImageCard";
 import ImageCard from "../../common/card/ImageCard";
@@ -8,26 +8,17 @@ import FooterCard from "./FooterCard";
 
 export default function ProfileCard() {
   return (
-    <Box
-      w={"100%"}
-      backgroundColor={"#262626"}
-      p={5}
-      borderRadius={"lg"}
-      overflow={"hidden"}
-      boxShadow={"md"}
-      maxW={"sm"}
-      h={"fit-content"}
-    >
-      <VStack w={"100%"} alignItems={"flex-start"} mb={10}>
-        <HeaderCard text="My Profile" />
-        <Box position={"relative"} width={"100%"}>
+    <Box w="100%" p={5} overflow="hidden" maxW="100%" h="fit-content">
+      <VStack w="100%" alignItems="flex-start">
+        <HeaderCard text="Profil Saya" />
+        <Box position="relative" w="100%">
           <BackgroundCardImage />
-          <Flex position={"absolute"} top={"70%"} left={"5%"}>
+          <Flex position="absolute" top="70%" left="5%">
             <ImageCard src="../../../../public/images/bill.jpeg" />
           </Flex>
         </Box>
-        <HStack ml={"auto"}>
-          <HollowButton text="Edit Profile" />
+        <HStack ml="auto">
+          <HollowButton text="Edit Profil" />
         </HStack>
         <BodyCard />
         <FooterCard />

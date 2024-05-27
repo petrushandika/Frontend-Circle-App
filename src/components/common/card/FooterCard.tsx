@@ -2,7 +2,7 @@ import { Flex, HStack, Text } from "@chakra-ui/react";
 
 export default function FooterCard() {
   return (
-    <HStack width={"100%"} alignItems={"flex-start"} color={"#FFF"} pb={5}>
+    <HStack width={"100%"} alignItems={"flex-start"} color={"#FFF"}>
       <Flex gap={2}>
         <Text fontWeight={"600"} fontSize={"sm"}>
           291
