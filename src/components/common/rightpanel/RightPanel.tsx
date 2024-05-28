@@ -8,6 +8,7 @@ export default function RightPanel() {
     <VStack
       width={"30%"}
       position="fixed"
+      borderLeft={"1px solid #3F3F3F"}
       h="100vh"
       overflowY="auto"
       p={5}

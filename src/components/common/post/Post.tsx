@@ -1,12 +1,10 @@
 import { VStack } from "@chakra-ui/react";
 import PostItem from "../../common/post/PostItem";
-import CreatePost from "./CreatePost";
+import CreatePost from "../post/CreatePost";
 
 export default function Post() {
   return (
     <VStack
-      borderRight={"1px solid #3F3F3F"}
-      borderLeft={"1px solid #3F3F3F"}
       height="100vh"
       w="100%"
       overflowY="auto"
@@ -18,7 +16,10 @@ export default function Post() {
       }}
     >
       <CreatePost />
-      <PostItem />
+      <VStack>
+        <PostItem />
+        <CreatePost />
+      </VStack>
     </VStack>
   );
 }

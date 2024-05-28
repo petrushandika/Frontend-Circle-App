@@ -12,6 +12,7 @@ export default function Sidebar() {
       alignItems={"flex-start"}
       py={5}
       px={10}
+      borderRight={"1px solid #3F3F3F"}
       position={"fixed"}
     >
       <VStack spacing={6} width={"100%"} alignItems={"flex-start"}>
@@ -20,12 +21,12 @@ export default function Sidebar() {
         </Heading>
         <IconCard to="/" icon={FiHome} text="Home" />
         <IconCard to="/search" icon={FiSearch} text="Search" />
-        <IconCard to="/follows" icon={FiUsers} text="Follows" />
-        <IconCard to="/profilepage" icon={FiUser} text="Profile" />
+        <IconCard to="/follow" icon={FiUsers} text="Follows" />
+        <IconCard to="/me" icon={FiUser} text="Profile" />
         <HoverButton text="Create Post" />
       </VStack>
       <VStack>
-        <IconCard to="/" icon={FiLogOut} text="Logout" />
+        <IconCard to="/logout" icon={FiLogOut} text="Logout" />
       </VStack>
     </VStack>
   );

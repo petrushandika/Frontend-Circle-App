@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import PostProfile from "../../components/common/post/PostProfile";
+import PostProfile from "../components/common/post/PostProfile";
 
 export default function ProfilePage() {
   return (

@@ -1,13 +1,13 @@
 import {
-  Heading,
+  // Heading,
   VStack,
   HStack,
   Input,
   Box,
   Image,
-  Button,
 } from "@chakra-ui/react";
 import ImageCard from "../../common/card/ImageCard";
+import SolidButton from "../button/SolidButton";
 
 export default function CreatePost() {
   return (
@@ -17,7 +17,7 @@ export default function CreatePost() {
       p={5}
       borderBottom={"1px solid #3F3F3F"}
     >
-      <Heading
+      {/* <Heading
         as="h4"
         size="md"
         color={"#FFF"}
@@ -26,21 +26,24 @@ export default function CreatePost() {
         pb={3}
       >
         Home
-      </Heading>
+      </Heading> */}
       <HStack width={"100%"} justifyContent={"space-between"}>
-        <HStack>
+        <HStack width={"100%"}>
           <ImageCard src="../../../../public/images/curry.jpeg" />
           <Input
+            ml={3}
+            color={"#FFF"}
+            variant="unstyled"
             placeholder="What's on your mind?"
             flex="1"
             outline="none"
             border="none"
-            mr={4}
+            mr={4}  
             _placeholder={{ color: "#909090" }}
           />
         </HStack>
         <HStack>
-          <Box position="relative" mr={4} cursor="pointer">
+          <Box position="relative" mr={4} cursor="pointer" width={"100%"}>
             <Image src="/images/upload.png" alt="Upload Icon" boxSize={7} />
             <Input
               type="file"
@@ -54,9 +57,7 @@ export default function CreatePost() {
               cursor="pointer"
             />
           </Box>
-          <Button backgroundColor="#04A51E" color="#fff" borderRadius={25}>
-            Post
-          </Button>
+          <SolidButton text="Post" />
         </HStack>
       </HStack>
     </VStack>

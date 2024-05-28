@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "image": "./images/bill.jpeg",
+    "image": "../../public/images/bill.jpeg",
     "name": "Bill Gates",
     "tag": "billgates",
     "time": "4h",
@@ -11,7 +11,7 @@
   },
   {
     "id": 2,
-    "image": "./images/curry.jpeg",
+    "image": "../../public/images/curry.jpeg",
     "name": "Stephen Curry",
     "tag": "stephencurry",
     "time": "17h",
@@ -21,7 +21,7 @@
   },
   {
     "id": 3,
-    "image": "./images/elizabeth.jpeg",
+    "image": "../../public/images/elizabeth.jpeg",
     "name": "Elizabeth Umpel",
     "tag": "elizabethumpel",
     "time": "10h",
@@ -31,7 +31,7 @@
   },
   {
     "id": 4,
-    "image": "./images/groubert.jpg",
+    "image": "../../public/images/groubert.jpg",
     "name": "Elizabeth Groubert",
     "tag": "elizabetgroubert",
     "time": "Jul 24",
@@ -42,7 +42,7 @@
   },
   {
     "id": 5,
-    "image": "./images/bill.jpeg",
+    "image": "../../public/images/bill.jpeg",
     "name": "Bill Gates",
     "tag": "billgates",
     "time": "4h",

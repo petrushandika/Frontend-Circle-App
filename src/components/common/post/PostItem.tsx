@@ -18,7 +18,7 @@ interface PostItemProps {
   id?: number | number[];
 }
 
-export default function PostItem({ id }: PostItemProps) {
+const PostItem = ({ id }: PostItemProps) => {
   const filteredData = Array.isArray(id)
     ? data.filter((post: PostData) => id.includes(post.id))
     : id !== undefined
@@ -26,10 +26,14 @@ export default function PostItem({ id }: PostItemProps) {
     : data;
 
   return (
-    <VStack width="100%" spacing={4} align="stretch">
+    <VStack
+      width="100%"
+      align="stretch"
+    >
       {filteredData.map((post: PostData) => (
         <PostList
           key={post.id}
+          id={post.id}
           image={post.image}
           name={post.name}
           tag={post.tag}
@@ -42,4 +46,6 @@ export default function PostItem({ id }: PostItemProps) {
       ))}
     </VStack>
   );
-}
+};
+
+export default PostItem;
