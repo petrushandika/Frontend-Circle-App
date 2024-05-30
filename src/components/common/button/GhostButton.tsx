@@ -1,17 +1,25 @@
 import { Button } from "@chakra-ui/react";
+import { ButtonProps } from "../../../types/Types";
 
-interface GhostButtonProps {
-  text: string;
-}
-
-export default function GhostButton({ text }: GhostButtonProps) {
+export default function GhostButton({
+  width,
+  height,
+  fontSize,
+  text,
+  ...props
+}: ButtonProps) {
   return (
     <Button
-      width={"100%"}
+      width={width}
+      height={height}
+      fontSize={fontSize}
+      {...props}
       color={"#FFF"}
-      backgroundColor={"transparent"}
+      background={"transparent"}
+      border={"none"}
       borderRadius={25}
-      _hover={{ backgroundColor: "none" }}
+      fontWeight={"500"}
+      _hover={"none"}
     >
       {text}
     </Button>

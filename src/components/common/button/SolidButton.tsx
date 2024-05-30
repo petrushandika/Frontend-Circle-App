@@ -1,17 +1,27 @@
 import { Button } from "@chakra-ui/react";
+import { ButtonProps } from "../../../types/Types";
 
-interface SolidButtonProps {
-  text: string;
-}
-
-export default function SolidButton({ text }: SolidButtonProps) {
+export default function SolidButton({
+  width,
+  height,
+  fontSize,
+  text,
+  onClick,
+  ...props
+}: ButtonProps) {
   return (
     <Button
-      width={"100%"}
+      width={width}
+      height={height}
+      fontSize={fontSize}
+      onClick={onClick}
+      {...props}
       color={"#FFF"}
-      backgroundColor={"#04A51E"}
+      background={"#04A51E"}
+      border={"none"}
       borderRadius={25}
-      _hover={{ backgroundColor: "none" }}
+      fontWeight={"500"}
+      _hover={{ background: "#04A51E" }}
     >
       {text}
     </Button>

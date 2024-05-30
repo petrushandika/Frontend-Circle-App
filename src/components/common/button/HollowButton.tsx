@@ -1,22 +1,27 @@
 import { Button } from "@chakra-ui/react";
+import { ButtonProps } from "../../../types/Types";
 
-interface HollowButtonProps {
-  text: string;
-}
-
-export default function HollowButton({text}: HollowButtonProps) {
+export default function HollowButton({
+  width,
+  height,
+  fontSize,
+  text,
+  onClick,
+  ...props
+}: ButtonProps) {
   return (
     <Button
-      width={"100%"}
-      maxWidth={"100px"}
-      height={"33px"}
+      width={width}
+      height={height}
+      fontSize={fontSize}
+      onClick={onClick}
+      {...props}
       color={"#FFF"}
-      backgroundColor={"transparent"}
+      background={"transparent"}
       border={"1px solid #FFF"}
       borderRadius={25}
-      _hover={{ backgroundColor: "none" }}
       fontWeight={"500"}
-      fontSize={"14px"}
+      _hover={"none"}
     >
       {text}
     </Button>

@@ -1,14 +1,21 @@
-import { VStack, Box } from "@chakra-ui/react";
+import {
+  Box,
+  VStack,
+  Text,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react";
 import HollowInput from "../components/common/input/HollowInput";
+import { SearchIcon } from "../components/common/icon/Icon";
 
 export default function SearchPage() {
   return (
     <Box
+      color={"#FFF"}
       borderRight={"1px solid #3F3F3F"}
       borderLeft={"1px solid #3F3F3F"}
-      w="100%"
-      p={5}
-      overflow="hidden"
+      width={"100%"}
+      overflow={"hidden"}
       height={"100vh"}
       overflowY="auto"
       sx={{
@@ -18,8 +25,29 @@ export default function SearchPage() {
         scrollbarWidth: "none",
       }}
     >
-      <VStack>
-        <HollowInput text="Search your friend" />
+      <VStack width={"100%"} padding={5}>
+        <InputGroup width="100%" color="#B2B2B2" alignItems="center">
+          <InputLeftElement pointerEvents="none" mr={5}>
+            <SearchIcon />
+          </InputLeftElement>
+          <HollowInput />
+        </InputGroup>
+
+        <VStack
+          color={"#FFF"}
+          spacing={0}
+          alignItems={"center"}
+          justifyContent={"center"}
+          height={"100vh"}
+        >
+          <Text>Write and search something</Text>
+          <Text fontSize={".8rem"} color={"#909090"}>
+            Try searching for something else or check the
+          </Text>
+          <Text fontSize={".8rem"} color={"#909090"}>
+            spelling what you typed.
+          </Text>
+        </VStack>
       </VStack>
     </Box>
   );

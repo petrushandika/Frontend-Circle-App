@@ -1,5 +1,5 @@
-import { Box, Tabs, TabList, TabPanel, Tab, TabPanels } from "@chakra-ui/react";
-import AccountCard from "../components/common/card/AccountCard";
+import { Box, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
+import CardAccount from "../components/common/card/CardAccount";
 
 export default function FollowPage() {
   return (
@@ -7,9 +7,9 @@ export default function FollowPage() {
       color={"#FFF"}
       borderRight={"1px solid #3F3F3F"}
       borderLeft={"1px solid #3F3F3F"}
-      w="100%"
-      p={5}
-      overflow="hidden"
+      width={"100%"}
+      padding={5}
+      overflow={"hidden"}
       height={"100vh"}
       overflowY="auto"
       sx={{
@@ -25,15 +25,11 @@ export default function FollowPage() {
           <Tab>Following</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel display={"flex"} flexDir={"column"} gap={"5"}>
-            <AccountCard text="All for Jesus and the A #GoBraves" />
-            <AccountCard text="catch me @ a concert or behind a bar" />
-            <AccountCard text="All for Jesus and the A #GoBraves" />
+          <TabPanel>
+            <CardAccount />
           </TabPanel>
-          <TabPanel display={"flex"} flexDir={"column"} gap={"5"}>
-            <AccountCard text="All for Jesus and the A #GoBraves" />
-            <AccountCard text="catch me @ a concert or behind a bar" />
-            <AccountCard text="All for Jesus and the A #GoBraves" />
+          <TabPanel>
+            <CardAccount />
           </TabPanel>
         </TabPanels>
       </Tabs>

@@ -5,13 +5,15 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import RootLayout from "./layout/RootLayout";
+import RootLayout from "./layouts/RootLayout";
 import HomePages from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import SearchPage from "./pages/SearchPage";
 import FollowPage from "./pages/FollowPage";
-import Testing from "./components/common/testing/Testing";
-import PostItem from "./components/common/post/PostItem";
+import Testing from "./test/Testing";
+// import PostItem from "./components/common/post/PostItem";
+import NewThread from "./components/common/modals/NewThread";
+import EditThread from "./components/common/modals/EditProfile"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,7 +23,9 @@ const router = createBrowserRouter(
         <Route path="me" element={<ProfilePage />} />
         <Route path="search" element={<SearchPage />} />
         <Route path="follow" element={<FollowPage />} />
-        <Route path="post/:id" element={<PostItem />} />
+        {/* <Route path="post/:id" element={<PostItem />} /> */}
+        <Route path="create" element={<NewThread />} />
+        <Route path="edit" element={<EditThread />} />
       </Route>
       <Route path="testing" element={<Testing />} />
     </>
