@@ -1,4 +1,4 @@
-import { VStack } from "@chakra-ui/react";
+import { VStack, FormControl } from "@chakra-ui/react";
 import HeaderCard from "../components/common/card/CardHeader";
 import HollowInput from "../components/common/input/HollowInput";
 import SolidButton from "../components/common/button/SolidButton";
@@ -24,15 +24,25 @@ export default function LoginPage() {
         color={"#FFF"}
         text={"Reset Password"}
         fontWeight={600}
-        fontSize={"2em"}
+        fontSize={"1.5em"}
       />
       <VStack width={"100%"} gap={3}>
-        <HollowInput pl={3} borderRadius={7} placeholder="New Password" />
-        <HollowInput
-          pl={3}
-          borderRadius={7}
-          placeholder="Confirm New Password"
-        />
+        <FormControl>
+          <HollowInput
+            pl={3}
+            borderRadius={7}
+            placeholder="New Password"
+            type="password"
+          />
+        </FormControl>
+        <FormControl>
+          <HollowInput
+            pl={3}
+            borderRadius={7}
+            placeholder="Confirm New Password"
+            type="password"
+          />
+        </FormControl>
         <SolidButton text="Create New Password" width={"100%"} />
       </VStack>
     </VStack>

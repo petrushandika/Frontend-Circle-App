@@ -1,4 +1,4 @@
-import { VStack, HStack, Text } from "@chakra-ui/react";
+import { VStack, HStack, Text, FormControl } from "@chakra-ui/react";
 import HeaderCard from "../components/common/card/CardHeader";
 import HollowInput from "../components/common/input/HollowInput";
 import SolidButton from "../components/common/button/SolidButton";
@@ -24,10 +24,12 @@ export default function LoginPage() {
         color={"#FFF"}
         text={"Forgot Password"}
         fontWeight={600}
-        fontSize={"2em"}
+        fontSize={"1.5em"}
       />
       <VStack width={"100%"} gap={3}>
-        <HollowInput pl={3} borderRadius={7} placeholder="Email" />
+        <FormControl>
+          <HollowInput pl={3} borderRadius={7} placeholder="Email" />
+        </FormControl>
         <SolidButton text="Send Instruction" width={"100%"} />
       </VStack>
       <HStack>

@@ -26,6 +26,7 @@ export interface InputProps {
   borderRadius?: string | number;
   pl?: string | number;
   placeholder?: string;
+  type?: string;
 }
 
 export interface ThreadData {

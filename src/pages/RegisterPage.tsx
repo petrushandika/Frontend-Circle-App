@@ -1,4 +1,4 @@
-import { VStack, HStack, Text } from "@chakra-ui/react";
+import { VStack, HStack, Text, FormControl } from "@chakra-ui/react";
 import HeaderCard from "../components/common/card/CardHeader";
 import HollowInput from "../components/common/input/HollowInput";
 import SolidButton from "../components/common/button/SolidButton";
@@ -17,7 +17,7 @@ export default function RegisterPage() {
         color={"#04A51E"}
         text={"Circle"}
         fontWeight={600}
-        fontSize={"2em"}
+        fontSize={"1.5em"}
       />
       <HeaderCard
         color={"#FFF"}
@@ -26,13 +26,24 @@ export default function RegisterPage() {
         fontSize={"2em"}
       />
       <VStack width={"100%"} gap={3}>
-        <HollowInput pl={3} borderRadius={7} placeholder="Full Name" />
-        <HollowInput pl={3} borderRadius={7} placeholder="Email" />
-        <HollowInput pl={3} borderRadius={7} placeholder="Password" />
+        <FormControl>
+          <HollowInput pl={3} borderRadius={7} placeholder="Full Name" />
+        </FormControl>
+        <FormControl>
+          <HollowInput pl={3} borderRadius={7} placeholder="Email" />
+        </FormControl>
+        <FormControl>
+          <HollowInput
+            pl={3}
+            borderRadius={7}
+            placeholder="Password"
+            type="password"
+          />
+        </FormControl>
         <SolidButton text="Create" width={"100%"} />
       </VStack>
       <HStack>
-        <Text>Already have account?</Text>
+        <Text>Already have an account?</Text>
         <Text color={"#04A51E"}>Login</Text>
       </HStack>
     </VStack>

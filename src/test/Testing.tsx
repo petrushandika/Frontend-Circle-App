@@ -17,7 +17,7 @@ import { VStack } from "@chakra-ui/react";
 // import ForgotPage from "../pages/ForgotPasswordPage"
 // import ResetPasswordPage from "../pages/ResetPasswordPage"
 // import NewThread from "../components/common/modals/NewThread"
-import EditProfile from "../components/common/modals/EditProfile";
+// import EditProfile from "../components/common/modals/EditProfile";
 
 export default function Testing() {
   return (
@@ -40,7 +40,7 @@ export default function Testing() {
       {/* <ForgotPage/> */}
       {/* <ResetPasswordPage /> */}
       {/* <NewThread /> */}
-      <EditProfile />
+      {/* <EditProfile /> */}
     </VStack>
   );
 }
