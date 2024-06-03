@@ -6,6 +6,7 @@ export interface ButtonProps {
   fontSize?: string | number;
   text?: string;
   onClick?: () => void;
+  type?: string;
 }
 
 export interface CardProps {
@@ -27,6 +28,9 @@ export interface InputProps {
   pl?: string | number;
   placeholder?: string;
   type?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
 }
 
 export interface ThreadData {
@@ -43,4 +47,16 @@ export interface ThreadData {
 
 export interface ThreadListProps {
   id?: number | number[];
+}
+
+export interface LoginProps {
+  email: string;
+  password: string;
+}
+
+export interface RegisterProps {
+  fullName: string;
+  username: string;
+  email: string;
+  password: string;
 }

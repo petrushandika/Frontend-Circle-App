@@ -1,50 +1,135 @@
-import { VStack, HStack, Text, FormControl } from "@chakra-ui/react";
+import {
+  VStack,
+  HStack,
+  Text,
+  FormControl,
+  FormErrorMessage,
+} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import HeaderCard from "../components/common/card/CardHeader";
 import HollowInput from "../components/common/input/HollowInput";
 import SolidButton from "../components/common/button/SolidButton";
+import { RegisterProps } from "../types/Types";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { api } from "../libs/Api";
 
 export default function RegisterPage() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterProps>();
+
+  const onSubmit: SubmitHandler<RegisterProps> = async (values, event) => {
+    try {
+      if (event) event.preventDefault();
+      const response = await api.post("/auth/register", values);
+      console.log("Registration successful:", response.data);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Registration failed:", error.message);
+      } else {
+        console.error("Registration failed:", error);
+      }
+    }
+  };
+
   return (
     <VStack
       height={"100vh"}
       alignItems={"flex-start"}
       justifyContent={"center"}
       color={"#FFF"}
-      spacing={4}
+      spacing={3}
       width={"400px"}
+      margin={"auto"}
     >
       <HeaderCard
         color={"#04A51E"}
         text={"Circle"}
         fontWeight={600}
-        fontSize={"1.5em"}
+        fontSize={"2em"}
       />
       <HeaderCard
         color={"#FFF"}
         text={"Create account Circle"}
         fontWeight={600}
-        fontSize={"2em"}
+        fontSize={"1.5em"}
       />
-      <VStack width={"100%"} gap={3}>
-        <FormControl>
-          <HollowInput pl={3} borderRadius={7} placeholder="Full Name" />
+      <VStack
+        as="form"
+        width={"100%"}
+        gap={3}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <FormControl isInvalid={!!errors.fullName}>
+          <HollowInput
+            pl={3}
+            borderRadius={7}
+            placeholder="Full Name"
+            {...register("fullName", {
+              required: "Full Name is required",
+            })}
+          />
+          <FormErrorMessage>
+            {errors.fullName && errors.fullName.message}
+          </FormErrorMessage>
         </FormControl>
-        <FormControl>
-          <HollowInput pl={3} borderRadius={7} placeholder="Email" />
+        <FormControl isInvalid={!!errors.username}>
+          <HollowInput
+            pl={3}
+            borderRadius={7}
+            placeholder="Username"
+            {...register("username", {
+              required: "Username is required",
+            })}
+          />
+          <FormErrorMessage>
+            {errors.username && errors.username.message}
+          </FormErrorMessage>
         </FormControl>
-        <FormControl>
+        <FormControl isInvalid={!!errors.email}>
+          <HollowInput
+            pl={3}
+            borderRadius={7}
+            placeholder="Email"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
+                message: "Invalid email address",
+              },
+            })}
+          />
+          <FormErrorMessage>
+            {errors.email && errors.email.message}
+          </FormErrorMessage>
+        </FormControl>
+        <FormControl isInvalid={!!errors.password}>
           <HollowInput
             pl={3}
             borderRadius={7}
             placeholder="Password"
             type="password"
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters",
+              },
+            })}
           />
+          <FormErrorMessage>
+            {errors.password && errors.password.message}
+          </FormErrorMessage>
         </FormControl>
-        <SolidButton text="Create" width={"100%"} />
+        <SolidButton text="Create" width={"100%"} type="submit" />
       </VStack>
       <HStack>
         <Text>Already have an account?</Text>
-        <Text color={"#04A51E"}>Login</Text>
+        <Link to="/login">
+          <Text color={"#04A51E"}>Login</Text>
+        </Link>
       </HStack>
     </VStack>
   );

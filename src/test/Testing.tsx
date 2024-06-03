@@ -12,7 +12,7 @@ import { VStack } from "@chakra-ui/react";
 // import HollowInput from "../components/common/input/HollowInput";
 // import GhostInput from "../components/common/input/GhostInput"
 // import ThreadCreate from "../components/common/thread/ThreadCreate";
-// import RegisterPage from "../pages/RegisterPage";
+import RegisterPage from "../pages/RegisterPage";
 // import LoginPage from "../pages/LoginPage";
 // import ForgotPage from "../pages/ForgotPasswordPage"
 // import ResetPasswordPage from "../pages/ResetPasswordPage"
@@ -35,7 +35,7 @@ export default function Testing() {
       {/* <HollowInput/>
       <GhostInput />
       <ThreadCreate/> */}
-      {/* <RegisterPage /> */}
+      <RegisterPage />
       {/* <LoginPage /> */}
       {/* <ForgotPage/> */}
       {/* <ResetPasswordPage /> */}

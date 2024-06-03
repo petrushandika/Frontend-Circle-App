@@ -1,11 +1,10 @@
-import React from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router-dom";
-import RootLayout from "./layouts/RootLayout";
+import RootLayout from "./layouts/CircleLayout";
 import HomePages from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import SearchPage from "./pages/SearchPage";
@@ -14,6 +13,8 @@ import FollowPage from "./pages/FollowPage";
 // import LogoutPage from "./pages/LogoutPage";
 import NewThread from "./components/common/modals/NewThread";
 import EditThread from "./components/common/modals/EditProfile"
+import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
 import Testing from "./test/Testing";
 
 const router = createBrowserRouter(
@@ -29,6 +30,8 @@ const router = createBrowserRouter(
         <Route path="create" element={<NewThread />} />
         <Route path="edit" element={<EditThread />} />
       </Route>
+      <Route path="register" element={<RegisterPage />} />
+      <Route path="login" element={<LoginPage />} />
       <Route path="testing" element={<Testing />} />
     </>
   )
