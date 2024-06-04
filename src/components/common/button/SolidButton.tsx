@@ -6,7 +6,6 @@ export default function SolidButton({
   height,
   fontSize,
   text,
-  onClick,
   ...props
 }: ButtonProps) {
   return (
@@ -14,7 +13,6 @@ export default function SolidButton({
       width={width}
       height={height}
       fontSize={fontSize}
-      onClick={onClick}
       {...props}
       color={"#FFF"}
       background={"#04A51E"}

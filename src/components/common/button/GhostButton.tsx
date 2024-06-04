@@ -13,13 +13,13 @@ export default function GhostButton({
       width={width}
       height={height}
       fontSize={fontSize}
-      {...props}
       color={"#FFF"}
       background={"transparent"}
       border={"none"}
       borderRadius={25}
       fontWeight={"500"}
       _hover={"none"}
+      {...props}
     >
       {text}
     </Button>

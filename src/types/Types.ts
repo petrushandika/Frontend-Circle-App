@@ -5,8 +5,8 @@ export interface ButtonProps {
   height?: string | number;
   fontSize?: string | number;
   text?: string;
-  handleClose?: () => void;
-  type?: string;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
 export interface CardProps {

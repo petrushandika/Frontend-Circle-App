@@ -6,7 +6,6 @@ export default function HollowButton({
   height,
   fontSize,
   text,
-  onClick,
   ...props
 }: ButtonProps) {
   return (
@@ -14,7 +13,6 @@ export default function HollowButton({
       width={width}
       height={height}
       fontSize={fontSize}
-      onClick={onClick}
       {...props}
       color={"#FFF"}
       background={"transparent"}
