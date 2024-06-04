@@ -8,7 +8,6 @@ export default function ThreadCreate() {
       width={"100%"}
       justifyContent={"space-between"}
       padding={5}
-      borderBottom={"1px solid #3F3F3F"}
     >
       <HStack>
         <GhostInput />

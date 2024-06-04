@@ -12,12 +12,13 @@ import { VStack } from "@chakra-ui/react";
 // import HollowInput from "../components/common/input/HollowInput";
 // import GhostInput from "../components/common/input/GhostInput"
 // import ThreadCreate from "../components/common/thread/ThreadCreate";
-import RegisterPage from "../pages/RegisterPage";
+// import RegisterPage from "../pages/RegisterPage";
 // import LoginPage from "../pages/LoginPage";
 // import ForgotPage from "../pages/ForgotPasswordPage"
 // import ResetPasswordPage from "../pages/ResetPasswordPage"
 // import NewThread from "../components/common/modals/NewThread"
 // import EditProfile from "../components/common/modals/EditProfile";
+// import ThreadDetail from "../components/common/thread/ThreadDetail";
 
 export default function Testing() {
   return (
@@ -35,12 +36,13 @@ export default function Testing() {
       {/* <HollowInput/>
       <GhostInput />
       <ThreadCreate/> */}
-      <RegisterPage />
+      {/* <RegisterPage /> */}
       {/* <LoginPage /> */}
       {/* <ForgotPage/> */}
       {/* <ResetPasswordPage /> */}
       {/* <NewThread /> */}
       {/* <EditProfile /> */}
+      {/* <ThreadDetail /> */}
     </VStack>
   );
 }

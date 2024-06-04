@@ -5,7 +5,7 @@ export interface ButtonProps {
   height?: string | number;
   fontSize?: string | number;
   text?: string;
-  onClick?: () => void;
+  handleClose?: () => void;
   type?: string;
 }
 

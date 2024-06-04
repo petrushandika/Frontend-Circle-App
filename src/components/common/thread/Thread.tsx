@@ -3,8 +3,18 @@ import ThreadList from "./ThreadList";
 
 export default function Thread() {
   return (
-    <VStack>
-      <ThreadList/>
+    <VStack
+      overflow={"hidden"}
+      height={"100vh"}
+      overflowY="auto"
+      sx={{
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+        scrollbarWidth: "none",
+      }}
+    >
+      <ThreadList />
     </VStack>
-  )
+  );
 }

@@ -9,7 +9,7 @@ import HomePages from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import SearchPage from "./pages/SearchPage";
 import FollowPage from "./pages/FollowPage";
-// import PostItem from "./components/common/post/PostItem";
+import Thread from "./components/common/thread/Thread";
 // import LogoutPage from "./pages/LogoutPage";
 import NewThread from "./components/common/modals/NewThread";
 import EditThread from "./components/common/modals/EditProfile"
@@ -25,7 +25,7 @@ const router = createBrowserRouter(
         <Route path="me" element={<ProfilePage />} />
         <Route path="search" element={<SearchPage />} />
         <Route path="follow" element={<FollowPage />} />
-        {/* <Route path="post/:id" element={<PostItem />} /> */}
+        <Route path="thread/:id" element={<Thread />} />
         {/* <Route path="logout" element={<LogoutPage />} /> */}
         <Route path="create" element={<NewThread />} />
         <Route path="edit" element={<EditThread />} />

@@ -4,21 +4,32 @@ import CardAccount from "./CardAccount";
 
 export default function SuggestCard() {
   return (
-    <Box
-      w="100%"
-      padding={5}
-      overflow="hidden"
-      maxW="100%"
-      h="fit-content"
-      background={""}
-      borderRadius={5}
-    >
-      <VStack gap={5}>
-        <HeaderCard text="Suggested for you" fontSize={"1rem"} />
-        <CardAccount />
-        <CardAccount />
-        <CardAccount />
-      </VStack>
+    <Box w="100%" padding={5} maxW="100%" h="fit-content" background={""} borderRadius={5}>
+      <HeaderCard text="Suggested for you" fontSize={"1rem"} />
+      <Box
+        overflowY="auto"
+        maxH="200px"
+        sx={{
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          scrollbarWidth: "none",
+        }}
+        mt={5}
+      >
+        <VStack gap={5}>
+          <CardAccount />
+          <CardAccount />
+          <CardAccount />
+          <CardAccount />
+          <CardAccount />
+          <CardAccount />
+          <CardAccount />
+          <CardAccount />
+          <CardAccount />
+          <CardAccount />
+        </VStack>
+      </Box>
     </Box>
   );
 }

@@ -39,15 +39,5 @@
     "imageUrl": "../../public/images/book.jpg",
     "like": 75,
     "reply": 35
-  },
-  {
-    "id": 5,
-    "image": "../../public/images/bill.jpeg",
-    "name": "Bill Gates",
-    "tag": "billgates",
-    "time": "4h",
-    "content": "Well beauty is in the eye of the beholder",
-    "like": 1470,
-    "reply": 350
   }
 ]

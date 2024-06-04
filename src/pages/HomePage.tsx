@@ -21,7 +21,7 @@ export default function HomePages() {
       }}
     >
       <VStack>
-        <VStack width={"100%"}>
+        <VStack width={"100%"} borderBottom={"1px solid #3F3F3F"}>
           <CardHeader
             text="Home"
             padding={"30px 0 0 20px"}
