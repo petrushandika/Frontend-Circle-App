@@ -6,9 +6,9 @@ import {
     FormErrorMessage,
   } from "@chakra-ui/react";
   import { Link } from "react-router-dom";
-  import HeaderCard from "../card/CardHeader";
-  import HollowInput from "../input/HollowInput";
-  import SolidButton from "../button/SolidButton";
+  import HeaderCard from "../../../components/common/card/CardHeader";
+  import HollowInput from "../../../components/common/input/HollowInput";
+  import SolidButton from "../../../components/common/button/SolidButton";
   import { RegisterProps } from "../../../types/Types";
   import { useForm, SubmitHandler } from "react-hook-form";
   import { api } from "../../../configs/Api";

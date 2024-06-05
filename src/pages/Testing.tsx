@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../redux/index";
-import { SET_USER } from "../redux/slice/auth";
+import { RootState } from "../redux/store";
+import { SET_AUTH_CHECK } from "../redux/slice/authSlice";
 import { Button, VStack, Text } from "@chakra-ui/react";
 
 export default function Testing() {
@@ -9,7 +9,7 @@ export default function Testing() {
 
   function onLogin() {
     dispatch(
-      SET_USER({
+      SET_AUTH_CHECK({
         fullName: "Petrus Handika",
         username: "petrushandika",
         email: "petrushandika@gmail.com",

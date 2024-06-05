@@ -1,7 +1,7 @@
 import { VStack } from "@chakra-ui/react";
 import ThreadItem from "./ThreadItem";
-import data from "../../../data/data.json";
 import { ThreadData, ThreadListProps } from "../../../types/Types";
+import data from "../../../data/data.json";
 
 export default function ThreadList({ id }: ThreadListProps) {
   const filteredData = Array.isArray(id)

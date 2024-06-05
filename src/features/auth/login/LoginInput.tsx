@@ -8,14 +8,14 @@ import {
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import HeaderCard from "../card/CardHeader";
-import HollowInput from "../input/HollowInput";
-import SolidButton from "../button/SolidButton";
+import HeaderCard from "../../../components/common/card/CardHeader";
+import HollowInput from "../../../components/common/input/HollowInput";
+import SolidButton from "../../../components/common/button/SolidButton";
 import { LoginProps } from "../../../types/Types";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { api } from "../../../configs/Api";
-import { SET_USER } from "../../../redux/slice/auth";
+import { SET_AUTH_CHECK } from "../../../redux/slice/authSlice";
 
 export default function LoginInput() {
   const {
@@ -53,8 +53,8 @@ export default function LoginInput() {
       }
 
       if (user) {
-        dispatch(SET_USER(user));
-        navigate('/testing');
+        dispatch(SET_AUTH_CHECK(user));
+        navigate('/');
       }
     } catch (error) {
       console.error('Login failed:', error);

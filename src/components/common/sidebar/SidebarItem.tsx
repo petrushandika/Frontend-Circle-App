@@ -63,7 +63,7 @@ export default function SidebarItem() {
         </HStack>
       </VStack>
       <VStack width={"100%"} alignItems={"flex-start"} color={"#FFF"}>
-        <Link to="/logout" style={{ width: "100%" }}>
+        <Link to="/auth/login" style={{ width: "100%" }}>
           <HStack gap={3} fontWeight={"300"}>
             <LogoutIcon fontSize={"1.5rem"} />
             <Text>Logout</Text>

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -18,10 +19,9 @@ import EditThread from "./components/common/modals/EditProfile";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import Testing from "./test/Testing";
-import { useEffect, useState } from "react";
 import { api } from "./configs/Api";
-import { RootState } from "./redux";
-import { SET_USER } from "./redux/slice/auth";
+import { RootState } from "./redux/store";
+import { SET_AUTH_CHECK } from "./redux/slice/authSlice";
 
 const PrivateRoute = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -49,7 +49,7 @@ const PrivateRoute = () => {
           },
         }
       );
-      dispatch(SET_USER(response.data));
+      dispatch(SET_AUTH_CHECK(response.data));
     } catch (error) {
       navigate("/auth/login");
       localStorage.removeItem("token");
@@ -69,17 +69,19 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<PrivateRoute />}>
-          <Route index element={<HomePages />} />
-          <Route path="me" element={<ProfilePage />} />
-          <Route path="search" element={<SearchPage />} />
-          <Route path="follow" element={<FollowPage />} />
-          <Route path="thread/:id" element={<Thread />} />
-          <Route path="create" element={<NewThread />} />
-          <Route path="edit" element={<EditThread />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/" element={<RootLayout />}>
+            <Route index element={<HomePages />} />
+            <Route path="me" element={<ProfilePage />} />
+            <Route path="search" element={<SearchPage />} />
+            <Route path="follow" element={<FollowPage />} />
+            <Route path="thread/:id" element={<Thread />} />
+            <Route path="create" element={<NewThread />} />
+            <Route path="edit" element={<EditThread />} />
+          </Route>
         </Route>
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="login" element={<LoginPage />} />
+        <Route path="auth/register" element={<RegisterPage />} />
+        <Route path="auth/login" element={<LoginPage />} />
         <Route path="testing" element={<Testing />} />
       </Routes>
     </Router>

@@ -26,13 +26,13 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    SET_USER: (state, action: { payload: User }) => {
+    SET_AUTH_CHECK: (state, action: { payload: User }) => {
       console.log(action.payload);
       state.user = action.payload;
     },
   },
 });
 
-export const { SET_USER } = authSlice.actions;
+export const { SET_AUTH_CHECK } = authSlice.actions;
 
 export default authSlice.reducer;
