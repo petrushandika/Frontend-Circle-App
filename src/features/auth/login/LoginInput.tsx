@@ -130,7 +130,7 @@ export default function LoginInput() {
       </VStack>
       <HStack>
         <Text>Don't have an account?</Text>
-        <Link to="/register">
+        <Link to="/auth/register">
           <Text color="#04A51E">Sign Up</Text>
         </Link>
       </HStack>

@@ -127,7 +127,7 @@ import {
         </VStack>
         <HStack>
           <Text>Already have an account?</Text>
-          <Link to="/login">
+          <Link to="/auth/login">
             <Text color={"#04A51E"}>Login</Text>
           </Link>
         </HStack>
