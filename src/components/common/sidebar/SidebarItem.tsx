@@ -28,12 +28,14 @@ export default function SidebarItem() {
         color={"#FFF"}
         fontWeight={"300"}
       >
-        <HeaderCard
-          color={"#04A51E"}
-          text={"Circle"}
-          fontWeight={700}
-          fontSize={"3em"}
-        />
+        <Link to={"/"}>
+          <HeaderCard
+            color={"#04A51E"}
+            text={"Circle"}
+            fontWeight={700}
+            fontSize={"3em"}
+          />
+        </Link>
         <Link to="/" style={{ width: "100%" }}>
           <HStack gap={3} ml={1}>
             <HomeIcon fontSize={"1.5rem"} />

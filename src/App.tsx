@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import RootLayout from "./layouts/CircleLayout";
 import HomePages from "./pages/HomePage";
-import ProfilePage from "./pages/ProfilePage";
+import MyProfilePage from "./pages/MyProfilePage";
 import SearchPage from "./pages/SearchPage";
 import FollowPage from "./pages/FollowPage";
 import Thread from "./components/common/thread/Thread";
@@ -72,7 +72,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<RootLayout />}>
             <Route index element={<HomePages />} />
-            <Route path="me" element={<ProfilePage />} />
+            <Route path="me" element={<MyProfilePage />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="follow" element={<FollowPage />} />
             <Route path="thread/:id" element={<Thread />} />

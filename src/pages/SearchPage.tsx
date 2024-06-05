@@ -1,14 +1,7 @@
-import {
-  Box,
-  VStack,
-  Text,
-  InputGroup,
-  InputLeftElement,
-} from "@chakra-ui/react";
-import HollowInput from "../components/common/input/HollowInput";
-import { SearchIcon } from "../components/common/icon/Icon";
+import { Box, VStack } from "@chakra-ui/react";
+import SearchStart from "../components/common/search/SearchStart";
 
-export default function SearchPage() {
+export default function HomePages() {
   return (
     <Box
       color={"#FFF"}
@@ -25,29 +18,8 @@ export default function SearchPage() {
         scrollbarWidth: "none",
       }}
     >
-      <VStack width={"100%"} padding={5}>
-        <InputGroup width="100%" color="#B2B2B2" alignItems="center">
-          <InputLeftElement pointerEvents="none" mr={5}>
-            <SearchIcon />
-          </InputLeftElement>
-          <HollowInput />
-        </InputGroup>
-
-        <VStack
-          color={"#FFF"}
-          spacing={0}
-          alignItems={"center"}
-          justifyContent={"center"}
-          height={"100vh"}
-        >
-          <Text>Write and search something</Text>
-          <Text fontSize={".8rem"} color={"#909090"}>
-            Try searching for something else or check the
-          </Text>
-          <Text fontSize={".8rem"} color={"#909090"}>
-            spelling what you typed.
-          </Text>
-        </VStack>
+      <VStack>
+        <SearchStart />
       </VStack>
     </Box>
   );

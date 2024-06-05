@@ -78,7 +78,7 @@ export default function ProfilePage() {
               </GridItem>
               <GridItem colSpan={4}>
                 <Image
-                  src="https://unair.ac.id/wp-content/uploads/2024/04/026064500_1556022692-festival-banyuwangi-kuliner-005-hery-h-winarno.webp"
+                  src="https://awsimages.detik.net.id/community/media/visual/2022/02/03/masakan-indonesia.jpeg?w=1200"
                   alt="Image 4"
                   objectFit="cover"
                   h="100%"

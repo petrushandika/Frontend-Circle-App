@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "image": "../../public/images/bill.jpeg",
+    "image": "https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611710.jpg?w=740&t=st=1717603436~exp=1717604036~hmac=900d86b82e14babe0cca733dfb04e7e9663ed5a7d853e56975529b90d567cd7b",
     "name": "Bill Gates",
     "tag": "billgates",
     "time": "4h",
@@ -11,7 +11,7 @@
   },
   {
     "id": 2,
-    "image": "../../public/images/curry.jpeg",
+    "image": "https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611768.jpg?w=740&t=st=1717603466~exp=1717604066~hmac=5e2c07a10d7282bd2d7fbdf63000dde6b340961e09388e940eac8701f87ebde0",
     "name": "Stephen Curry",
     "tag": "stephencurry",
     "time": "17h",
@@ -21,7 +21,7 @@
   },
   {
     "id": 3,
-    "image": "../../public/images/elizabeth.jpeg",
+    "image": "https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611713.jpg?w=740&t=st=1717603482~exp=1717604082~hmac=6585e731ed3ace206dd69499d98d3d623d8716d6e7f81d502cd68794d217f6ed",
     "name": "Elizabeth Umpel",
     "tag": "elizabethumpel",
     "time": "10h",
@@ -31,13 +31,24 @@
   },
   {
     "id": 4,
-    "image": "../../public/images/groubert.jpg",
+    "image": "https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611704.jpg?t=st=1717603466~exp=1717604066~hmac=0119132cadac23409eb7efe4f300c29a0c81ea0e59fbf5bf97dfda3875fdee80",
     "name": "Elizabeth Groubert",
     "tag": "elizabetgroubert",
     "time": "Jul 24",
-    "content": "52 Books you should know:",
-    "imageUrl": "../../public/images/book.jpg",
+    "content": "Sokin bae udah",
+    "imageUrl": "https://cdn.langit7.id/foto/850/langit7/berita/2022/07/18/1/19258/penjual-starling-raup-untung-dua-kali-lipat-dari-fenomena-anak-scbd-shh.jpeg",
     "like": 75,
     "reply": 35
+  },
+  {
+    "id": 5,
+    "image": "https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611728.jpg",
+    "name": "Jamal Udin",
+    "tag": "jamaludin",
+    "time": "Jan 21",
+    "content": "Starbucks sokin",
+    "imageUrl": "https://assets-pergikuliner.com/aJRpQ_OHNEJX8tj3Pw71VSeycfA=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/image/picture/2324232/picture-1634026447.jpg",
+    "like": 115,
+    "reply": 40
   }
 ]

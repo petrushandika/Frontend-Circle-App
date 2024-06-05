@@ -15,7 +15,7 @@ export default function ThreadCreate() {
       <HStack>
         <Box position="relative" cursor="pointer" width={"100%"}>
           <Image
-            src="../../../../public/images/upload.png"
+            src="https://cdn-icons-png.flaticon.com/128/3039/3039527.png"
             alt="Upload Icon"
             boxSize={6}
           />

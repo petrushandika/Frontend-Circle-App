@@ -1,4 +1,5 @@
 import { VStack, Box, HStack, Text, Image } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import {
   GithubIcon,
   LinkedinIcon,
@@ -25,10 +26,27 @@ export default function DeveloperCard() {
             <Text>•</Text>
           </HStack>
           <HStack>
-            <GithubIcon />
-            <LinkedinIcon />
-            <FacebookIcon />
-            <InstagramIcon />
+            <Link to={"https://github.com/petrushandika"} target="_blank">
+              <GithubIcon />
+            </Link>
+            <Link
+              to={"https://www.linkedin.com/in/petrushandika/"}
+              target="_blank"
+            >
+              <LinkedinIcon />
+            </Link>
+            <Link
+              to={"https://web.facebook.com/profile.php?id=100005576386372"}
+              target="_blank"
+            >
+              <FacebookIcon />
+            </Link>
+            <Link
+              to={"https://www.instagram.com/petrushandika/"}
+              target="_blank"
+            >
+              <InstagramIcon />
+            </Link>
           </HStack>
         </HStack>
         <HStack
