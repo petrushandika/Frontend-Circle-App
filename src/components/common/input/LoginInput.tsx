@@ -6,7 +6,8 @@ import {
   FormControl,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import HeaderCard from "../card/CardHeader";
 import HollowInput from "../input/HollowInput";
 import SolidButton from "../button/SolidButton";
@@ -14,6 +15,7 @@ import { LoginProps } from "../../../types/Types";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { api } from "../../../configs/Api";
+import { SET_USER } from "../../../redux/slice/auth";
 
 export default function LoginInput() {
   const {
@@ -27,6 +29,9 @@ export default function LoginInput() {
     password: "",
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setData((prevData) => ({
@@ -35,13 +40,24 @@ export default function LoginInput() {
     }));
   };
 
-  const onSubmit: SubmitHandler<LoginProps> = async (values, event?) => {
+  const onSubmit: SubmitHandler<LoginProps> = async (values, event) => {
     try {
+      const response = await api.post('/auth/login', values);
+      const { token, user } = response.data;
+
       if (event) event.preventDefault();
-      const response = await api.post("/auth/login", values);
-      console.log("Login successful:", response.data);
+      console.log('Login successful:', response.data);
+
+      if (token) {
+        localStorage.setItem('Token', token);
+      }
+
+      if (user) {
+        dispatch(SET_USER(user));
+        navigate('/testing');
+      }
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error('Login failed:', error);
     }
   };
 

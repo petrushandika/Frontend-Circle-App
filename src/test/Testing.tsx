@@ -19,6 +19,7 @@ import { VStack } from "@chakra-ui/react";
 // import NewThread from "../components/common/modals/NewThread"
 // import EditProfile from "../components/common/modals/EditProfile";
 // import ThreadDetail from "../components/common/thread/ThreadDetail";
+import TestingPage from "../pages/Testing"
 
 export default function Testing() {
   return (
@@ -43,6 +44,7 @@ export default function Testing() {
       {/* <NewThread /> */}
       {/* <EditProfile /> */}
       {/* <ThreadDetail /> */}
+      <TestingPage/>
     </VStack>
   );
 }
