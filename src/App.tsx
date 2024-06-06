@@ -22,12 +22,14 @@ import Testing from "./test/Testing";
 import { api } from "./configs/Api";
 import { RootState } from "./redux/store";
 import { SET_AUTH_CHECK } from "./features/auth/slices/authSlice";
+import { useToast } from "@chakra-ui/react";
 
 const PrivateRoute = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const currentUser = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toast = useToast();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -55,6 +57,14 @@ const PrivateRoute = () => {
       localStorage.removeItem("token");
     } finally {
       setIsLoading(false);
+      toast({
+        title: "User not authenticated!",
+        description: "Failed to authenticated. Please try again later.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      });
     }
   }
 

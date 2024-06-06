@@ -5,6 +5,7 @@ import {
   Box,
   FormControl,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -33,6 +34,8 @@ export default function LoginForm() {
     password: "",
   });
 
+  const toast = useToast();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -58,9 +61,25 @@ export default function LoginForm() {
 
       if (user) {
         dispatch(SET_AUTH_CHECK(user));
+        toast({
+          title: "Login Success!",
+          description: "Success",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+          position: "top",
+        });
         navigate("/");
       }
     } catch (error) {
+      toast({
+        title: "Email/Password is wrong!",
+        description: "Failed to login. Please try again later.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      });
       console.error("Login failed:", error);
     }
   };

@@ -4,8 +4,9 @@ import {
   Text,
   FormControl,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import HeaderCard from "../../../components/common/card/CardHeader";
 import HollowInput from "../../../components/common/input/HollowInput";
 import SolidButton from "../../../components/common/button/SolidButton";
@@ -24,17 +25,33 @@ export default function RegisterForm() {
     resolver: zodResolver(RegisterSchema),
   });
 
+  const toast = useToast();
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<RegisterProps> = async (values, event) => {
     try {
       if (event) event.preventDefault();
       const response = await api.post("/auth/register", values);
+      toast({
+        title: "Register Success!",
+        description: "Success",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      });
+      navigate("/auth/login");
       console.log("Registration successful:", response.data);
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Registration failed:", error.message);
-      } else {
-        console.error("Registration failed:", error);
-      }
+      toast({
+        title: "Register Failed!",
+        description: "Failed to register. Please try again later.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      });
+      console.error("Registration failed:", error);
     }
   };
 
