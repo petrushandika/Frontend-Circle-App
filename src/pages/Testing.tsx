@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
-import { SET_AUTH_CHECK } from "../redux/slice/authSlice";
+import { SET_AUTH_CHECK } from "../features/auth/slices/authSlice";
 import { Button, VStack, Text } from "@chakra-ui/react";
 
 export default function Testing() {

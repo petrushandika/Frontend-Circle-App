@@ -11,18 +11,22 @@ import { useDispatch } from "react-redux";
 import HeaderCard from "../../../components/common/card/CardHeader";
 import HollowInput from "../../../components/common/input/HollowInput";
 import SolidButton from "../../../components/common/button/SolidButton";
-import { LoginProps } from "../../../types/Types";
+import { LoginProps } from "../types/LoginProps";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "../../../configs/Api";
-import { SET_AUTH_CHECK } from "../../../redux/slice/authSlice";
+import { SET_AUTH_CHECK } from "../slices/authSlice";
+import { LoginSchema } from "../validators/LoginSchema";
 
-export default function LoginInput() {
+export default function LoginForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginProps>();
+  } = useForm<LoginProps>({
+    resolver: zodResolver(LoginSchema),
+  });
 
   const [data, setData] = useState<LoginProps>({
     email: "",
@@ -42,22 +46,22 @@ export default function LoginInput() {
 
   const onSubmit: SubmitHandler<LoginProps> = async (values, event) => {
     try {
-      const response = await api.post('/auth/login', values);
+      const response = await api.post("/auth/login", values);
       const { token, user } = response.data;
 
       if (event) event.preventDefault();
-      console.log('Login successful:', response.data);
+      console.log("Login successful:", response.data);
 
       if (token) {
-        localStorage.setItem('Token', token);
+        localStorage.setItem("Token", token);
       }
 
       if (user) {
         dispatch(SET_AUTH_CHECK(user));
-        navigate('/');
+        navigate("/");
       }
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error("Login failed:", error);
     }
   };
 
@@ -89,13 +93,7 @@ export default function LoginInput() {
             pl={3}
             borderRadius={7}
             placeholder="Email/Username"
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
-                message: "Invalid email address",
-              },
-            })}
+            {...register("email")}
             value={data.email}
             onChange={handleInputChange}
           />
@@ -109,13 +107,7 @@ export default function LoginInput() {
             borderRadius={7}
             placeholder="Password"
             type="password"
-            {...register("password", {
-              required: "Password is required",
-              minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters",
-              },
-            })}
+            {...register("password")}
             value={data.password}
             onChange={handleInputChange}
           />

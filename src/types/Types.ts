@@ -48,15 +48,3 @@ export interface ThreadData {
 export interface ThreadListProps {
   id?: number | number[];
 }
-
-export interface LoginProps {
-  email: string;
-  password: string;
-}
-
-export interface RegisterProps {
-  fullName: string;
-  username: string;
-  email: string;
-  password: string;
-}

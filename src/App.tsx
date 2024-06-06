@@ -16,12 +16,12 @@ import FollowPage from "./pages/FollowPage";
 import Thread from "./components/common/thread/Thread";
 import NewThread from "./components/common/modals/NewThread";
 import EditThread from "./components/common/modals/EditProfile";
-import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./features/auth/pages/RegisterPage";
+import LoginPage from "./features/auth/pages/LoginPage";
 import Testing from "./test/Testing";
 import { api } from "./configs/Api";
 import { RootState } from "./redux/store";
-import { SET_AUTH_CHECK } from "./redux/slice/authSlice";
+import { SET_AUTH_CHECK } from "./features/auth/slices/authSlice";
 
 const PrivateRoute = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

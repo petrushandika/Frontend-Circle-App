@@ -1,10 +1,10 @@
 import { VStack } from "@chakra-ui/react";
-import RegisterInput from "../features/auth/register/RegisterInput";
+import RegisterForm from "../components/LoginForm";
 
 export default function RegisterPage() {
   return (
     <VStack>
-      <RegisterInput />
+      <RegisterForm />
     </VStack>
   );
 }
