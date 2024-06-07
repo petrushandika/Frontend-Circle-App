@@ -18,7 +18,7 @@ import NewThread from "./components/common/modals/NewThread";
 import EditThread from "./components/common/modals/EditProfile";
 import RegisterPage from "./features/auth/pages/RegisterPage";
 import LoginPage from "./features/auth/pages/LoginPage";
-import Testing from "./test/Testing";
+import { Testing } from "./test/Testing";
 import { api } from "./configs/Api";
 import { RootState } from "./redux/store";
 import { SET_AUTH_CHECK } from "./features/auth/slices/authSlice";
@@ -68,11 +68,12 @@ const PrivateRoute = () => {
     }
   }
 
-  if (!isLoading) {
-    if (currentUser.email) return <Outlet />;
-    return <Navigate to="/auth/login" />;
+  if(!isLoading) {
+    if (!currentUser) {
+      return <Navigate to="/auth/login"/>
+    }
+    return <Outlet/>
   }
-  return <RootLayout />;
 };
 
 function App() {

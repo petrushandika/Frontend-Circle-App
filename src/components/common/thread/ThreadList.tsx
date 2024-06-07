@@ -1,31 +1,36 @@
-import { VStack } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import { VStack, Text } from "@chakra-ui/react";
 import ThreadItem from "./ThreadItem";
-import { ThreadData, ThreadListProps } from "../../../types/Types";
-import data from "../../../data/data.json";
+import { ThreadData } from "../../../types/Types";
+import { api } from "../../../configs/Api";
 
-export default function ThreadList({ id }: ThreadListProps) {
-  const filteredData = Array.isArray(id)
-    ? data.filter((post: ThreadData) => id.includes(post.id))
-    : id !== undefined
-    ? data.filter((post: ThreadData) => post.id === id)
-    : data;
+export default function ThreadList() {
+  const [threads, setThreads] = useState<ThreadData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await api.get("/threads");
+        setThreads(response.data.threads);
+      } catch (err) {
+        console.error("Error fetching threads:", err);
+        setError("Failed to load threads. Please check your authentication token.");
+      }
+    }
+    fetchData();
+  }, []);
+  console.log(threads);
 
   return (
     <VStack width="100%">
-      {filteredData.map((thread: ThreadData) => (
-        <ThreadItem
-          key={thread.id}
-          id={thread.id}
-          image={thread.image}
-          name={thread.name}
-          tag={thread.tag}
-          time={thread.time}
-          content={thread.content}
-          imageUrl={thread.imageUrl}
-          like={thread.like}
-          reply={thread.reply}
-        />
-      ))}
+      {error ? (
+        <Text color="red">{error}</Text>
+      ) : (
+        threads.map(thread => (
+          <ThreadItem key={thread.id} thread={thread} />
+        ))
+      )}
     </VStack>
   );
 }
