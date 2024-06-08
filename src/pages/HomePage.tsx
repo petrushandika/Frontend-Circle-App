@@ -4,6 +4,10 @@ import ThreadCreate from "../components/common/thread/ThreadCreate";
 import CardHeader from "../components/common/card/CardHeader";
 
 export default function HomePages() {
+  const refetchThreads = () => {
+    console.log("Refetching threads...");
+  };
+
   return (
     <Box
       color={"#FFF"}
@@ -28,7 +32,7 @@ export default function HomePages() {
             fontSize={25}
             fontWeight={"400"}
           />
-          <ThreadCreate />
+          <ThreadCreate refetch={refetchThreads} />
         </VStack>
         <Thread />
       </VStack>

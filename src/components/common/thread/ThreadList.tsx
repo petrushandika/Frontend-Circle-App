@@ -1,34 +1,39 @@
-import { useState, useEffect } from "react";
 import { VStack, Text } from "@chakra-ui/react";
 import ThreadItem from "./ThreadItem";
-import { ThreadData } from "../../../types/Types";
+import { Thread } from "../../../types/Thread";
 import { api } from "../../../configs/Api";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 export default function ThreadList() {
-  const [threads, setThreads] = useState<ThreadData[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await api.get("/threads");
-        setThreads(response.data.threads);
-      } catch (err) {
-        console.error("Error fetching threads:", err);
-        setError("Failed to load threads. Please check your authentication token.");
-      }
+  const { data: threads, refetch } = useQuery<Thread[]>({
+    queryKey: ["threads"],
+    queryFn: getThreads,
+  });
+
+  async function getThreads() {
+    try {
+      const response = await api.get("/threads");
+      return response.data.threads;
+    } catch (err) {
+      console.error("Error fetching threads:", err);
+      setError(
+        "Failed to load threads. Please check your authentication token."
+      );
+      throw new Error("Failed to fetch threads");
     }
-    fetchData();
-  }, []);
-  console.log(threads);
+  }
 
   return (
     <VStack width="100%">
       {error ? (
         <Text color="red">{error}</Text>
       ) : (
-        threads.map(thread => (
-          <ThreadItem key={thread.id} thread={thread} />
+        threads &&
+        threads.map((thread) => (
+          <ThreadItem key={thread.id} thread={thread} refetch={refetch} />
         ))
       )}
     </VStack>

@@ -49,11 +49,11 @@ export interface ThreadListProps {
   id?: number | number[];
 }
 
-export interface Thread {
-  id: number;
-  content: string;
-  image: string;
-  totalLikes: number;
-  totalReplies: number;
-  createdAt: Date;
-}
+// export interface Thread {
+//   id: number;
+//   content: string;
+//   image: string;
+//   totalLikes: number;
+//   totalReplies: number;
+//   createdAt: Date;
+// }
