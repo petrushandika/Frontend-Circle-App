@@ -1,28 +1,25 @@
 import { HStack, Box, Image, Input, FormControl } from "@chakra-ui/react";
-import GhostInput from "../input/GhostInput";
 import SolidButton from "../button/SolidButton";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ThreadSchema } from "../../../validators/ThreadSchema";
 import { ThreadDTO } from "../../../types/ThreadDTO";
 import { useMutation } from "@tanstack/react-query";
 import { api } from "../../../configs/Api";
 import { AxiosError } from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ThreadEntity } from "@/types/ThreadEntity";
+import { ThreadEntity } from "../../../types/ThreadEntity";
+import useAuth from "../../../features/auth/hooks/useAuth";
 
 export default function ThreadCreate({ refetch }: { refetch: () => void }) {
-  const {
-    register,
-    handleSubmit,
-  } = useForm<ThreadDTO>({
+  const { user } = useAuth();
+  const { register, handleSubmit } = useForm<ThreadDTO>({
     mode: "onSubmit",
-    resolver: zodResolver(ThreadSchema),
   });
 
   const { mutateAsync } = useMutation<ThreadEntity, AxiosError, ThreadDTO>({
     mutationFn: async (newThread) => {
       const formData = new FormData();
       formData.append("content", newThread.content);
+      const userId = Number(user.id);
+      formData.append("userId", String(userId));
       if (newThread.image && newThread.image.length > 0) {
         formData.append("image", newThread.image[0]);
       }
@@ -34,10 +31,10 @@ export default function ThreadCreate({ refetch }: { refetch: () => void }) {
   const onSubmit: SubmitHandler<ThreadDTO> = async (data) => {
     try {
       await mutateAsync(data);
-      console.log(data);
+      console.log("Success Upload Thread!");
       refetch();
     } catch (error) {
-      console.log(error);
+      console.log("Failed Upload Thread!:", error);
     }
   };
 
@@ -45,7 +42,13 @@ export default function ThreadCreate({ refetch }: { refetch: () => void }) {
     <FormControl as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
       <HStack justifyContent="space-between" padding={5}>
         <HStack>
-          <GhostInput {...register("content")} />
+          <Input
+            placeholder="What is happening?!"
+            variant="unstyled"
+            fontSize={".9rem"}
+            width={"100%"}
+            {...register("content")}
+          />
         </HStack>
         <HStack spacing={2}>
           <Box position="relative" cursor="pointer" width="100%">
