@@ -7,4 +7,6 @@ export interface User {
   bio?: string;
   createdAt: Date;
   updatedAt: Date;
+  followers: { id: number }[];
+  following: { id: number }[];
 }

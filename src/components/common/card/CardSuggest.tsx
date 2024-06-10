@@ -1,27 +1,24 @@
-import { VStack, Box } from "@chakra-ui/react";
+import { VStack, Box, Text } from "@chakra-ui/react";
 import HeaderCard from "./CardHeader";
 import CardAccount from "./CardAccount";
-import { useEffect, useState } from "react";
 import { api } from "../../../configs/Api";
 import { User } from "../../../types/User";
+import { useEffect, useState } from "react";
 
 export default function SuggestCard() {
   const [users, setUsers] = useState<User[]>([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await api.get("/users");
-        if (Array.isArray(response.data.users)) {
-          setUsers(response.data.users);
-        } else {
-          console.error("Response is not an array:", response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
+  async function getUsers() {
+    try {
+      const response = await api.get("/users");
+      setUsers(response.data.users);
+    } catch (error) {
+      console.error("Error fetching users:", error);
     }
-    fetchData();
+  }
+
+  useEffect(() => {
+    getUsers();
   }, []);
 
   return (
@@ -39,9 +36,11 @@ export default function SuggestCard() {
         mt={5}
       >
         <VStack gap={5}>
-          {users.map((user) => (
-            <CardAccount key={user.id} user={user} />
-          ))}
+          {users.length > 0 ? (
+            users.map((user) => <CardAccount key={user.id} user={user} />)
+          ) : (
+            <Text>No suggestions available</Text>
+          )}
         </VStack>
       </Box>
     </Box>

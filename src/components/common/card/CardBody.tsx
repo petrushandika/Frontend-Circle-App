@@ -1,15 +1,20 @@
 import { VStack, Text } from "@chakra-ui/react";
-import HeaderCard from "./CardHeader";
+import CardHeader from "./CardHeader";
+import { User } from "../../../types/User";
 
-export default function BodyCard() {
+interface UserProps {
+  user: User;
+}
+
+export default function BodyCard({ user }: UserProps) {
   return (
     <VStack width={"100%"} align={"flex-start"} color={"#FFF"}>
-      <HeaderCard text="Petrus Handika✌️" fontSize={"1.5rem"} />
+      <CardHeader text={user.fullName} fontSize={"1.5rem"} />
       <Text color={"#909090"} fontSize={"sm"} fontWeight={"400"}>
-        @petrushandika
+        @{user.username}
       </Text>
       <Text fontSize={"sm"} fontWeight={"400"}>
-        picked over by the worms, and weird fishes
+        {user.bio}
       </Text>
     </VStack>
   );

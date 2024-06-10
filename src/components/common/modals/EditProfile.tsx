@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -13,16 +13,29 @@ import {
   HStack,
   VStack,
   Flex,
+  Input,
 } from "@chakra-ui/react";
 import HollowButton from "../button/HollowButton";
 import HollowInput from "../input/HollowInput";
 import CardHeader from "../card/CardHeader";
-import ImageCard from "../card/CardImage";
+import CardImage from "../card/CardImage";
 import SolidButton from "../button/SolidButton";
 
 export default function NewThread() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
+  const [imageSrc, setImageSrc] = useState("");
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageSrc(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <>
@@ -58,8 +71,23 @@ export default function NewThread() {
                       objectFit={"cover"}
                       borderRadius={5}
                     />
-                    <Flex position="absolute" top="70%" left="5%">
-                      <ImageCard src="https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611731.jpg" />
+                    <Flex position="absolute" top="70%" left="5%" direction="column" alignItems="center">
+                      <Box position="relative" cursor="pointer">
+                        <CardImage src={imageSrc} size="md" />
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageChange}
+                          opacity={0}
+                          position="absolute"
+                          top={0}
+                          left={0}
+                          width="100%"
+                          height="100%"
+                          cursor="pointer"
+                          borderRadius="50%"
+                        />
+                      </Box>
                     </Flex>
                   </Box>
                   <VStack width={"100%"} color={"#FFF"} pt={10}>

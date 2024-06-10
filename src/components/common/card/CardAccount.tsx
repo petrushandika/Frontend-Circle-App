@@ -1,4 +1,3 @@
-// CardAccount.tsx
 import { HStack, VStack, Text } from "@chakra-ui/react";
 import CardImage from "./CardImage";
 import HollowButton from "../button/HollowButton";
@@ -9,8 +8,6 @@ interface UserProps {
 }
 
 export default function CardAccount({ user }: UserProps) {
-  console.log("User data:", user);
-
   const avatarUrl = user.avatar;
 
   return (
@@ -23,7 +20,7 @@ export default function CardAccount({ user }: UserProps) {
           </Text>
           <Text color={"#909090"} fontSize={"sm"} fontWeight={"400"}>
             @{user.username}
-          </Text>
+          </Text> 
         </VStack>
       </HStack>
       <HStack>

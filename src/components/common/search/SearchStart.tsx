@@ -4,19 +4,38 @@ import {
   Text,
   InputGroup,
   InputLeftElement,
+  Input,
 } from "@chakra-ui/react";
-import HollowInput from "../input/HollowInput";
 import { SearchIcon } from "../icon/Icon";
 import CardAccount from "../card/CardAccount";
+import { useState, useEffect } from "react";
+import { api } from "../../../configs/Api";
+import { useDebounce } from "use-debounce";
 import { User } from "../../../types/User";
-import { useState } from "react";
 
 export default function SearchStart() {
-  const [searchResults, setSearchResults] = useState<User[]>([]);
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [debouncedSearchInput] = useDebounce(searchInput, 500);
+  const [searchData, setSearchData] = useState<User[]>([]);
 
-  const handleSearchResults = (results: User[]) => {
-    setSearchResults(results);
-  };
+  async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchInput(e.target.value);
+  }
+
+  async function getData() {
+    try {
+      const response = await api.get(`/users?search=${debouncedSearchInput}`);
+      setSearchData(response.data);
+    } catch (error) {
+      console.error("Error fetching search data:", error);
+    }
+  }
+
+  useEffect(() => {
+    if (debouncedSearchInput) {
+      getData();
+    }
+  }, [debouncedSearchInput]);
 
   return (
     <Box
@@ -39,12 +58,17 @@ export default function SearchStart() {
           <InputLeftElement pointerEvents="none" mr={5}>
             <SearchIcon />
           </InputLeftElement>
-          <HollowInput onSearchResults={handleSearchResults} />
+          <Input
+            borderRadius={25}
+            placeholder="Search..."
+            onChange={handleChange}
+            value={searchInput}
+          />
         </InputGroup>
 
-        {searchResults.length > 0 ? (
+        {searchData.length > 0 ? (
           <VStack width={"100%"} gap={5}>
-            {searchResults.map((user) => (
+            {searchData.map((user) => (
               <CardAccount key={user.id} user={user} />
             ))}
           </VStack>
@@ -58,10 +82,8 @@ export default function SearchStart() {
           >
             <Text>Write and search something</Text>
             <Text fontSize={".8rem"} color={"#909090"}>
-              Try searching for something else or check the
-            </Text>
-            <Text fontSize={".8rem"} color={"#909090"}>
-              spelling what you typed.
+              Try searching for something else or check the spelling of what you
+              typed.
             </Text>
           </VStack>
         )}
