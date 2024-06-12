@@ -1,7 +1,11 @@
 import SidebarItem from "./SidebarItem";
 
-export default function Sidebar() {
+interface SidebarProps {
+  refetch: () => void;
+}
+
+export default function Sidebar({ refetch }: SidebarProps) {
   return (
-      <SidebarItem />
+    <SidebarItem refetch={refetch} />
   );
 }
