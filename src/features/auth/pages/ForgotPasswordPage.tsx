@@ -1,7 +1,7 @@
 import { VStack, HStack, Text, FormControl } from "@chakra-ui/react";
-import HeaderCard from "../components/common/card/CardHeader";
-import HollowInput from "../components/common/input/HollowInput";
-import SolidButton from "../components/common/button/SolidButton";
+import HeaderCard from "../../../components/common/card/CardHeader";
+import HollowInput from "../../../components/common/input/HollowInput";
+import SolidButton from "../../../components/common/button/SolidButton";
 
 export default function LoginPage() {
   return (

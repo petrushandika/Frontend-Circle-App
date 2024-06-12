@@ -17,15 +17,18 @@ export default function SearchStart() {
   const [searchInput, setSearchInput] = useState<string>("");
   const [debouncedSearchInput] = useDebounce(searchInput, 500);
   const [searchData, setSearchData] = useState<User[]>([]);
+  const [showPlaceholder, setShowPlaceholder] = useState<boolean>(true);
 
   async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchInput(e.target.value);
+    setShowPlaceholder(e.target.value === "");
   }
 
   async function getData() {
     try {
       const response = await api.get(`/users?search=${debouncedSearchInput}`);
-      setSearchData(response.data);
+      const searchData = response.data;
+      setSearchData(searchData.users);
     } catch (error) {
       console.error("Error fetching search data:", error);
     }
@@ -66,13 +69,7 @@ export default function SearchStart() {
           />
         </InputGroup>
 
-        {searchData.length > 0 ? (
-          <VStack width={"100%"} gap={5}>
-            {searchData.map((user) => (
-              <CardAccount key={user.id} user={user} />
-            ))}
-          </VStack>
-        ) : (
+        {showPlaceholder && (
           <VStack
             color={"#FFF"}
             spacing={0}
@@ -82,9 +79,19 @@ export default function SearchStart() {
           >
             <Text>Write and search something</Text>
             <Text fontSize={".8rem"} color={"#909090"}>
-              Try searching for something else or check the spelling of what you
-              typed.
+              Try searching for something else or check the
             </Text>
+            <Text fontSize={".8rem"} color={"#909090"}>
+              spelling of what you typed.
+            </Text>
+          </VStack>
+        )}
+
+        {searchData.length > 0 && (
+          <VStack width={"100%"} gap={5}>
+            {searchData.map((user) => (
+              <CardAccount key={user.id} user={user} />
+            ))}
           </VStack>
         )}
       </VStack>

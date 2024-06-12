@@ -1,39 +1,99 @@
-import { HStack, VStack, Text, Image, Box } from "@chakra-ui/react";
+import {
+  HStack,
+  VStack,
+  Text,
+  Image,
+  Box,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Tooltip,
+} from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
+import { FiMoreVertical } from "react-icons/fi";
 import ImageCard from "../card/CardImage";
 import { LoveIcon, CommentIcon } from "../icon/Icon";
 import { Link } from "react-router-dom";
 import { Thread } from "../../../types/Thread";
 import ThreadCreate from "./ThreadCreate";
 import { useState } from "react";
+import ThreadEdit from "./ThreadEdit";
+import ThreadDelete from "./ThreadDelete";
 
 interface ThreadItemProps {
   thread: Thread;
   refetch: () => void;
+  onEdit: (updatedThread: Thread) => void;
 }
 
-export default function ThreadItem({ thread, refetch }: ThreadItemProps) {
+export default function ThreadItem({
+  thread,
+  refetch,
+  onEdit,
+}: ThreadItemProps) {
   const [showThreadCreate, setShowThreadCreate] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const toggleThreadCreate = () => {
     setShowThreadCreate((prevState) => !prevState);
   };
 
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleDelete = () => {
+    console.log("Delete function triggered");
+  };
+
   return (
-    <VStack width="100%" borderBottom="1px solid #3F3F3F" alignItems={"flex-start"}>
+    <VStack
+      width="100%"
+      borderBottom="1px solid #3F3F3F"
+      alignItems={"flex-start"}
+    >
       <HStack alignItems="flex-start" spacing={4} padding={5}>
         <ImageCard src={thread.user.avatar} />
         <VStack align="flex-start" spacing={2} width="100%">
-          <HStack>
-            <Text color="#FFF" fontSize="sm" fontWeight={400}>
-              {thread.user.fullName}
-            </Text>
-            <Text color="#909090" fontSize="sm" fontWeight={400}>
-            @{thread.user.username} • {new Date(thread.createdAt).toLocaleString()}
-            </Text>
+          <HStack justifyContent="space-between" width="100%">
+            <HStack>
+              <Text color="#FFF" fontSize="sm" fontWeight={400}>
+                {thread.user.fullName}
+              </Text>
+              <Text color="#909090" fontSize="sm" fontWeight={400}>
+                @{thread.user.username} •{" "}
+                {new Date(thread.createdAt).toLocaleString()}
+              </Text>
+            </HStack>
+            <Menu>
+              <Tooltip aria-label="Options">
+                <MenuButton
+                  as={IconButton}
+                  icon={<FiMoreVertical />}
+                  aria-label="Options"
+                  variant="unstyled"
+                  _hover={{ bg: "transparent" }}
+                  _active={{ bg: "transparent" }}
+                  color="white"
+                />
+              </Tooltip>
+              <MenuList color={"#000"}>
+                <MenuItem icon={<EditIcon />} onClick={handleEdit}>
+                  Edit
+                </MenuItem>
+                <ThreadDelete onDelete={handleDelete} />
+              </MenuList>
+            </Menu>
           </HStack>
-          <Text color="#FFF" fontSize="sm" fontWeight={300}>
-            {thread.content}
-          </Text>
+          {isEditing ? (
+            <ThreadEdit thread={thread} onEdit={onEdit} />
+          ) : (
+            <Text color="#FFF" fontSize="sm" fontWeight={300}>
+              {thread.content}
+            </Text>
+          )}
           {thread.image && (
             <Image src={thread.image} mt={2} borderRadius="md" />
           )}
@@ -52,7 +112,7 @@ export default function ThreadItem({ thread, refetch }: ThreadItemProps) {
         </VStack>
       </HStack>
       {showThreadCreate && (
-        <Box width="100%" borderTop="1px solid #3F3F3F">
+        <Box color={"#FFF"} width="100%" borderTop="1px solid #3F3F3F">
           <ThreadCreate refetch={refetch} />
         </Box>
       )}

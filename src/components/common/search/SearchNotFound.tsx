@@ -4,8 +4,8 @@ import {
   Text,
   InputGroup,
   InputLeftElement,
+  Input,
 } from "@chakra-ui/react";
-import HollowInput from "../input/HollowInput";
 import { SearchIcon } from "../icon/Icon";
 
 export default function SearchStart() {
@@ -30,7 +30,7 @@ export default function SearchStart() {
           <InputLeftElement pointerEvents="none" mr={5}>
             <SearchIcon />
           </InputLeftElement>
-          <HollowInput />
+          <Input borderRadius={25} placeholder="Search..." />
         </InputGroup>
 
         <VStack

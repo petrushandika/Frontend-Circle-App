@@ -2,11 +2,12 @@ import { VStack, Text } from "@chakra-ui/react";
 import ThreadItem from "./ThreadItem";
 import { Thread } from "../../../types/Thread";
 import { api } from "../../../configs/Api";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 export default function ThreadList() {
   const [error, setError] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
   const { data: threads, refetch } = useQuery<Thread[]>({
     queryKey: ["threads"],
@@ -26,6 +27,19 @@ export default function ThreadList() {
     }
   }
 
+  const mutation = useMutation<Thread, Error, Thread>({
+    mutationFn: async (updatedThread: Thread) => {
+      const response = await api.patch(
+        `/threads/${updatedThread.id}`,
+        updatedThread
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+
   return (
     <VStack width="100%">
       {error ? (
@@ -33,7 +47,12 @@ export default function ThreadList() {
       ) : (
         threads &&
         threads.map((thread) => (
-          <ThreadItem key={thread.id} thread={thread} refetch={refetch} />
+          <ThreadItem
+            key={thread.id}
+            thread={thread}
+            refetch={refetch}
+            onEdit={(updatedThread) => mutation.mutate(updatedThread)}
+          />
         ))
       )}
     </VStack>

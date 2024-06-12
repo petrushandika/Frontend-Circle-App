@@ -1,4 +1,13 @@
-import { HStack, Box, Image, Input, FormControl } from "@chakra-ui/react";
+import React, { useState } from "react";
+import {
+  HStack,
+  VStack,
+  Box,
+  Image,
+  Textarea,
+  FormControl,
+  Input,
+} from "@chakra-ui/react";
 import SolidButton from "../button/SolidButton";
 import { ThreadDTO } from "../../../types/ThreadDTO";
 import { useMutation } from "@tanstack/react-query";
@@ -13,6 +22,8 @@ export default function ThreadCreate({ refetch }: { refetch: () => void }) {
   const { register, handleSubmit } = useForm<ThreadDTO>({
     mode: "onSubmit",
   });
+
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const { mutateAsync } = useMutation<ThreadEntity, AxiosError, ThreadDTO>({
     mutationFn: async (newThread) => {
@@ -38,20 +49,38 @@ export default function ThreadCreate({ refetch }: { refetch: () => void }) {
     }
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewImage(null);
+    }
+  };
+
   return (
     <FormControl as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
-      <HStack justifyContent="space-between" padding={5}>
-        <HStack>
-          <Input
+      <HStack
+        justifyContent="space-between"
+        padding={5}
+        alignItems="flex-start"
+      >
+        <VStack width={"100%"}>
+          <Textarea
             placeholder="What is happening?!"
             variant="unstyled"
             fontSize={".9rem"}
             width={"100%"}
+            resize="none"
             {...register("content")}
           />
-        </HStack>
-        <HStack spacing={2}>
-          <Box position="relative" cursor="pointer" width="100%">
+        </VStack>
+        <HStack spacing={2} alignItems="center">
+          <Box position="relative" cursor="pointer" width={"100%"}>
             <Image
               src="https://cdn-icons-png.flaticon.com/128/3039/3039527.png"
               alt="Upload Icon"
@@ -65,8 +94,10 @@ export default function ThreadCreate({ refetch }: { refetch: () => void }) {
               left={0}
               opacity={0}
               width="100%"
+              height="100%"
               cursor="pointer"
               {...register("image")}
+              onChange={handleFileChange}
             />
           </Box>
           <SolidButton
@@ -78,6 +109,11 @@ export default function ThreadCreate({ refetch }: { refetch: () => void }) {
           />
         </HStack>
       </HStack>
+      <VStack width="100%">
+        {previewImage && (
+          <Image borderRadius={25} p={5} src={previewImage} alt="Preview" />
+        )}
+      </VStack>
     </FormControl>
   );
 }

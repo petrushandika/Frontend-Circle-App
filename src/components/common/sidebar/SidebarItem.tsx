@@ -10,7 +10,11 @@ import {
 import HeaderCard from "../card/CardHeader";
 import NewThread from "../../common/modals/NewThread";
 
-export default function SidebarItem() {
+interface ThreadItemProps {
+  refetch: () => void;
+}
+
+export default function SidebarItem({ refetch }: ThreadItemProps) {
   return (
     <VStack
       width={"20%"}
@@ -61,7 +65,7 @@ export default function SidebarItem() {
           </HStack>
         </Link>
         <HStack width={"100%"}>
-          <NewThread />
+          <NewThread refetch={refetch} />
         </HStack>
       </VStack>
       <VStack width={"100%"} alignItems={"flex-start"} color={"#FFF"}>

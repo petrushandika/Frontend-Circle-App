@@ -8,12 +8,11 @@ interface UserProps {
 }
 
 export default function CardAccount({ user }: UserProps) {
-  const avatarUrl = user.avatar;
 
   return (
     <HStack width={"100%"} justify={"space-between"}>
       <HStack gap={3}>
-        <CardImage src={avatarUrl} />
+        <CardImage src={user.avatar} />
         <VStack align="start" gap={0}>
           <Text fontSize={"sm"} fontWeight={"500"} color={"#FFF"}>
             {user.fullName}

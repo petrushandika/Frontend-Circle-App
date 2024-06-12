@@ -68,11 +68,11 @@ const PrivateRoute = () => {
     }
   }
 
-  if(!isLoading) {
+  if (!isLoading) {
     if (!currentUser) {
-      return <Navigate to="/auth/login"/>
+      return <Navigate to="/auth/login" />;
     }
-    return <Outlet/>
+    return <Outlet />;
   }
 };
 
@@ -87,7 +87,7 @@ function App() {
             <Route path="search" element={<SearchPage />} />
             <Route path="follow" element={<FollowPage />} />
             <Route path="thread/:id" element={<Thread />} />
-            <Route path="create" element={<NewThread />} />
+            <Route path="create" element={<NewThread refetch={() => {}} />} />
             <Route path="edit" element={<EditThread />} />
           </Route>
         </Route>
