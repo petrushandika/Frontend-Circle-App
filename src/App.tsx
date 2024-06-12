@@ -4,8 +4,8 @@ import {
   Routes,
   Route,
   Navigate,
-  useNavigate,
   Outlet,
+  useNavigate,
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import RootLayout from "./layouts/CircleLayout";
@@ -55,8 +55,6 @@ const PrivateRoute = () => {
     } catch (error) {
       navigate("/auth/login");
       localStorage.removeItem("token");
-    } finally {
-      setIsLoading(false);
       toast({
         title: "User not authenticated!",
         description: "Failed to authenticated. Please try again later.",
@@ -65,15 +63,20 @@ const PrivateRoute = () => {
         isClosable: true,
         position: "top",
       });
+    } finally {
+      setIsLoading(false);
     }
   }
 
-  if (!isLoading) {
-    if (!currentUser) {
-      return <Navigate to="/auth/login" />;
-    }
-    return <Outlet />;
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
+
+  if (!currentUser) {
+    return <Navigate to="/auth/login" />;
+  }
+
+  return <Outlet />;
 };
 
 function App() {
