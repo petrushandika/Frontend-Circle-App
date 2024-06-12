@@ -5,10 +5,13 @@ import RightPanel from "../components/common/rightpanel/RightPanel";
 import { Outlet } from "react-router-dom";
 
 const RootLayout: React.FC = () => {
+  // Define the refetch function here
+  const refetch = () => {};
+
   return (
     <Grid templateColumns="20% 50% 30%" bg="#1D1D1D">
       <GridItem w="100%">
-        <Sidebar />
+        <Sidebar refetch={refetch} />
       </GridItem>
       <GridItem w="100%">
         <Outlet />
