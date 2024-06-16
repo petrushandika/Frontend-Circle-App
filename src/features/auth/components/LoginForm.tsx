@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import HeaderCard from "../../../components/common/card/CardHeader";
+import CardHeader from "../../../components/common/card/CardHeader";
 import HollowInput from "../../../components/common/input/HollowInput";
 import SolidButton from "../../../components/common/button/SolidButton";
 import { LoginProps } from "../types/LoginProps";
@@ -94,15 +94,15 @@ export default function LoginForm() {
       width={"400px"}
       margin={"auto"}
     >
-      <HeaderCard
+      <CardHeader
         color={"#04A51E"}
         text={"Circle"}
         fontWeight={600}
         fontSize={"2em"}
       />
-      <HeaderCard
+      <CardHeader
         color={"#FFF"}
-        text={"Create account Circle"}
+        text={"Login account Circle"}
         fontWeight={600}
         fontSize={"1.5em"}
       />

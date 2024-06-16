@@ -1,5 +1,3 @@
-// components/common/CardHeader.tsx
-
 import { Heading } from "@chakra-ui/react";
 import { CardProps } from "../../../types/Types";
 

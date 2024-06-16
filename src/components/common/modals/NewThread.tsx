@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -34,6 +34,8 @@ export default function NewThread({ refetch }: { refetch: () => void }) {
     mode: "onSubmit",
   });
 
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
   const { mutateAsync } = useMutation<ThreadEntity, AxiosError, ThreadDTO>({
     mutationFn: async (newThread) => {
       const formData = new FormData();
@@ -53,8 +55,22 @@ export default function NewThread({ refetch }: { refetch: () => void }) {
       await mutateAsync(data);
       console.log("Success Upload Thread!");
       refetch();
+      onClose();
     } catch (error) {
       console.log("Failed Upload Thread!:", error);
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewImage(null);
     }
   };
 
@@ -62,25 +78,39 @@ export default function NewThread({ refetch }: { refetch: () => void }) {
     <VStack width={"100%"}>
       <SolidButton text="Create Post" onClick={onOpen} width={"100%"} />
 
-      <FormControl as="form" onSubmit={handleSubmit(onSubmit)}>
-        <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent backgroundColor={"#1D1D1D"}>
-            <ModalCloseButton color={"#FFF"} />
+      <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent backgroundColor={"#1D1D1D"}>
+          <ModalCloseButton color={"#FFF"} />
+          <FormControl
+            as="form"
+            onSubmit={handleSubmit(onSubmit)}
+            width={"100%"}
+          >
             <ModalBody p={6}>
-                <HStack alignItems={"flex-start"} gap={3}>
-                  <CardImage />
-                  <Textarea
-                    color={"#FFF"}
-                    placeholder="What is happening?!"
-                    variant="unstyled"
-                    fontSize={".9rem"}
-                    width={"100%"}
-                    resize="none"
-                    {...register("content")}
-                  />
-                </HStack>
+              <HStack alignItems={"flex-start"} gap={3}>
+                <CardImage />
+                <Textarea
+                  color={"#FFF"}
+                  placeholder="What is happening?!"
+                  variant="unstyled"
+                  fontSize={".9rem"}
+                  width={"100%"}
+                  resize="none"
+                  {...register("content")}
+                />
+              </HStack>
             </ModalBody>
+            <VStack width="100%">
+              {previewImage && (
+                <Image
+                  borderRadius={25}
+                  p={5}
+                  src={previewImage}
+                  alt="Preview"
+                />
+              )}
+            </VStack>
 
             <ModalFooter>
               <HStack
@@ -105,6 +135,7 @@ export default function NewThread({ refetch }: { refetch: () => void }) {
                     width="100%"
                     cursor="pointer"
                     {...register("image")}
+                    onChange={handleFileChange}
                   />
                 </Box>
                 <SolidButton
@@ -116,9 +147,9 @@ export default function NewThread({ refetch }: { refetch: () => void }) {
                 />
               </HStack>
             </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </FormControl>
+          </FormControl>
+        </ModalContent>
+      </Modal>
     </VStack>
   );
 }
