@@ -7,7 +7,8 @@ export interface Thread {
   totalLikes?: number;
   totalReplies?: number;
   userId: number;
-  createdAt: Date;
+  threadId: number;
+  createdAt: string;
   updatedAt: Date;
   user: Pick<User, 'fullName' | 'username' | 'avatar'>;
 }

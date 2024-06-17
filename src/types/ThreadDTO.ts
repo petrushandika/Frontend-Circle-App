@@ -1,5 +1,7 @@
 export interface ThreadDTO {
+  id: number;
   content: string;
-  image?: FileList;
+  image?: string | FileList;
+  threadId: number;
   userId: number;
 }

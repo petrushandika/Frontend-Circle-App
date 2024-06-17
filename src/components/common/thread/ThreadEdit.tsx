@@ -1,44 +1,104 @@
-import { HStack, Textarea } from "@chakra-ui/react";
-import { useState } from "react";
+import {
+  HStack,
+  Textarea,
+  FormControl,
+  VStack,
+  Box,
+  Image,
+  Input,
+} from "@chakra-ui/react";
+import { useMutation } from "@tanstack/react-query";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { AxiosError } from "axios";
 import SolidButton from "../button/SolidButton";
-import { Thread } from "../../../types/Thread";
+import useAuth from "../../../features/auth/hooks/useAuth";
+import { api } from "../../../configs/Api";
+import { ThreadDTO } from "../../../types/ThreadDTO";
+import { ThreadEntity } from "@/types/ThreadEntity";
 
 interface ThreadEditProps {
-  thread: Thread;
-  onEdit: (updatedThread: Thread) => void;
+  thread: ThreadDTO;
+  refetch: () => void;
+  onEdit: (updatedThread: ThreadDTO) => void;
 }
 
-export default function ThreadEdit({ thread, onEdit }: ThreadEditProps) {
-  const [editContent, setEditContent] = useState(thread.content);
+export default function ThreadEdit({
+  thread,
+  refetch,
+  onEdit,
+}: ThreadEditProps) {
+  const { user } = useAuth();
+  const { register, handleSubmit } = useForm<ThreadDTO>({
+    mode: "onSubmit",
+  });
 
-  const handleEditSubmit = () => {
-    onEdit({ ...thread, content: editContent });
+  const { mutateAsync } = useMutation<ThreadEntity, AxiosError, ThreadDTO>({
+    mutationFn: async (updatedThread) => {
+      const formData = new FormData();
+      formData.append("content", updatedThread.content);
+      const userId = Number(user.id);
+      formData.append("userId", String(userId));
+      const threadId = Number(thread.id);
+      // formData.append("threadId", String(threadId));
+      const response = await api.patch(`/threads/${threadId}`, formData);
+      return response.data;
+    },
+  });
+
+  const onSubmit: SubmitHandler<ThreadDTO> = async (data) => {
+    try {
+      await mutateAsync(data);
+      console.log("Success Edit Thread!");
+      refetch();
+      onEdit(data);
+    } catch (error) {
+      console.log("Failed Edit Thread!:", error);
+    }
   };
 
   return (
-    <HStack
-      width={"100%"}
-      justifyContent={"space-between"}
-      alignItems={"flex-start"}
-    >
-      <Textarea
-        value={editContent}
-        onChange={(e) => setEditContent(e.target.value)}
-        placeholder="What is happening?!"
-        variant="unstyled"
-        fontSize={".9rem"}
-        width={"100%"}
-        resize="none"
-      />
-      <HStack>
-        <SolidButton
-          onClick={handleEditSubmit}
-          text="Post"
-          width="100%"
-          height="33px"
-          fontSize=".9rem"
-        />
+    <FormControl as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
+      <HStack justifyContent="space-between" alignItems="flex-start">
+        <VStack width={"100%"}>
+          <Textarea
+            placeholder="What is happening?!"
+            variant="unstyled"
+            fontSize={".9rem"}
+            width={"100%"}
+            resize="none"
+            {...register("content")}
+          />
+        </VStack>
+        <HStack spacing={2} alignItems="center">
+          <Box position="relative" cursor="pointer" width={"100%"}>
+            <Image
+              src="https://cdn-icons-png.flaticon.com/128/3039/3039527.png"
+              alt="Upload Icon"
+              boxSize={6}
+            />
+            <Input
+              type="file"
+              accept="image/*"
+              position="absolute"
+              top={0}
+              left={0}
+              opacity={0}
+              width="100%"
+              height="100%"
+              cursor="pointer"
+              {...register("image")}
+            />
+          </Box>
+          <SolidButton
+            type="submit"
+            text="Post"
+            width="100%"
+            height="33px"
+            fontSize=".9rem"
+          />
+        </HStack>
       </HStack>
-    </HStack>
+    </FormControl>
   );
 }
+  

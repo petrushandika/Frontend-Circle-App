@@ -14,18 +14,31 @@ import {
 import { EditIcon } from "@chakra-ui/icons";
 import { FiMoreVertical } from "react-icons/fi";
 import ImageCard from "../card/CardImage";
-import { LoveIcon, CommentIcon } from "../icon/Icon";
+import { CommentIcon } from "../icon/Icon";
 import { Link } from "react-router-dom";
 import { Thread } from "../../../types/Thread";
 import ThreadCreate from "./ThreadCreate";
 import { useState } from "react";
 import ThreadEdit from "./ThreadEdit";
 import ThreadDelete from "./ThreadDelete";
+import ThreadLike from "./ThreadLike";
+import { ThreadDTO } from "../../../types/ThreadDTO";
+
+const formatDate = (createdAt: string) => {
+  const date = new Date(createdAt);
+  const options: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+
+  };
+  return date.toLocaleDateString('id-ID', options);
+};
 
 interface ThreadItemProps {
   thread: Thread;
   refetch: () => void;
-  onEdit: (updatedThread: Thread) => void;
+  onEdit: (updatedThread: ThreadDTO) => void;
 }
 
 export default function ThreadItem({
@@ -40,8 +53,9 @@ export default function ThreadItem({
     setShowThreadCreate((prevState) => !prevState);
   };
 
-  const handleEdit = () => {
-    setIsEditing(true);
+  const handleEdit = (updatedThread: ThreadDTO) => {
+    setIsEditing(false);
+    onEdit(updatedThread);
   };
 
   const handleDelete = () => {
@@ -52,7 +66,7 @@ export default function ThreadItem({
     <VStack
       width="100%"
       borderBottom="1px solid #3F3F3F"
-      alignItems={"flex-start"}
+      alignItems="flex-start"
     >
       <HStack alignItems="flex-start" spacing={4} padding={5}>
         <ImageCard src={thread.user.avatar} />
@@ -63,8 +77,7 @@ export default function ThreadItem({
                 {thread.user.fullName}
               </Text>
               <Text color="#909090" fontSize="sm" fontWeight={400}>
-                @{thread.user.username} •{" "}
-                {new Date(thread.createdAt).toLocaleString()}
+                @{thread.user.username} • {formatDate(thread.createdAt)}
               </Text>
             </HStack>
             <Menu>
@@ -79,8 +92,11 @@ export default function ThreadItem({
                   color="white"
                 />
               </Tooltip>
-              <MenuList color={"#000"}>
-                <MenuItem icon={<EditIcon />} onClick={handleEdit}>
+              <MenuList color="#000">
+                <MenuItem
+                  icon={<EditIcon />}
+                  onClick={() => setIsEditing(true)}
+                >
                   Edit
                 </MenuItem>
                 <ThreadDelete onDelete={handleDelete} />
@@ -88,31 +104,30 @@ export default function ThreadItem({
             </Menu>
           </HStack>
           {isEditing ? (
-            <ThreadEdit thread={thread} onEdit={onEdit} />
+            <ThreadEdit thread={thread} onEdit={handleEdit} refetch={refetch} />
           ) : (
             <Text color="#FFF" fontSize="sm" fontWeight={300}>
               {thread.content}
             </Text>
           )}
-          {thread.image && (
-            <Image src={thread.image} mt={2} borderRadius="md" />
-          )}
+          {thread.image && <Image src={thread.image} mt={2} borderRadius="md" />}
           <HStack color="#FFF">
-            <HStack>
-              <LoveIcon />
-              <Text>{thread.totalLikes}</Text>
-            </HStack>
-            <HStack>
-              <Link to={`/thread/${thread.id}`} onClick={toggleThreadCreate}>
+            <ThreadLike
+              threadId={thread.id}
+              totalLikes={thread.totalLikes ?? 0}
+              refetch={refetch}
+            />
+            <Link to={`/thread/${thread.id}`} onClick={toggleThreadCreate}>
+              <HStack>
                 <CommentIcon />
-              </Link>
-              <Text>{thread.totalReplies}</Text>
-            </HStack>
+                <Text>{thread.totalReplies}</Text>
+              </HStack>
+            </Link>
           </HStack>
         </VStack>
       </HStack>
       {showThreadCreate && (
-        <Box color={"#FFF"} width="100%" borderTop="1px solid #3F3F3F">
+        <Box color="#FFF" width="100%" borderTop="1px solid #3F3F3F">
           <ThreadCreate refetch={refetch} />
         </Box>
       )}
