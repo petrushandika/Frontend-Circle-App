@@ -26,15 +26,12 @@ export default function ThreadLike({
 
   const { mutateAsync } = useMutation<LikeEntity, AxiosError, LikeDTO>({
     mutationFn: async () => {
-      // const formData = new FormData();
       const userId = Number(user.id);
-      // formData.append("userId", String(userId));
-      // formData.append("threadId", String(threadId));
       const body = {
         threadId,
-        userId
-      }
-      const response = await api.post(`/likes/`, body);
+        userId,
+      };
+      const response = await api.post("/likes", body);
       return response.data;
     },
   });

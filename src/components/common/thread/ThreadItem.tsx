@@ -27,12 +27,11 @@ import { ThreadDTO } from "../../../types/ThreadDTO";
 const formatDate = (createdAt: string) => {
   const date = new Date(createdAt);
   const options: Intl.DateTimeFormatOptions = {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-
+    day: "numeric",
+    month: "long",
+    year: "numeric",
   };
-  return date.toLocaleDateString('id-ID', options);
+  return date.toLocaleDateString("id-ID", options);
 };
 
 interface ThreadItemProps {
@@ -99,7 +98,11 @@ export default function ThreadItem({
                 >
                   Edit
                 </MenuItem>
-                <ThreadDelete onDelete={handleDelete} />
+                <ThreadDelete
+                  threadId={thread.id}
+                  onDelete={handleDelete}
+                  refetch={refetch}
+                />
               </MenuList>
             </Menu>
           </HStack>
@@ -110,7 +113,9 @@ export default function ThreadItem({
               {thread.content}
             </Text>
           )}
-          {thread.image && <Image src={thread.image} mt={2} borderRadius="md" />}
+          {thread.image && (
+            <Image src={thread.image} mt={2} borderRadius="md" />
+          )}
           <HStack color="#FFF">
             <ThreadLike
               threadId={thread.id}

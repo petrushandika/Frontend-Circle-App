@@ -39,7 +39,6 @@ export default function ThreadEdit({
       const userId = Number(user.id);
       formData.append("userId", String(userId));
       const threadId = Number(thread.id);
-      // formData.append("threadId", String(threadId));
       const response = await api.patch(`/threads/${threadId}`, formData);
       return response.data;
     },
@@ -101,4 +100,3 @@ export default function ThreadEdit({
     </FormControl>
   );
 }
-  
