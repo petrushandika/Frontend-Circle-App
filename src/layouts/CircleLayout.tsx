@@ -1,12 +1,10 @@
-import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Sidebar from "../components/common/sidebar/Sidebar";
 import RightPanel from "../components/common/rightpanel/RightPanel";
 import { Outlet } from "react-router-dom";
 
-const RootLayout: React.FC = () => {
-  // Define the refetch function here
-  const refetch = () => {};
+function RootLayout() {
+  const refetch = () => { };
 
   return (
     <Grid templateColumns="20% 50% 30%" bg="#1D1D1D">
@@ -21,6 +19,6 @@ const RootLayout: React.FC = () => {
       </GridItem>
     </Grid>
   );
-};
+}
 
 export default RootLayout;

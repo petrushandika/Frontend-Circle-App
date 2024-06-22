@@ -5,8 +5,8 @@ export interface User {
   email: string;
   avatar?: string;
   bio?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   followers: { id: number }[];
   following: { id: number }[];
 }

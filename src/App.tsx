@@ -91,7 +91,7 @@ function App() {
             <Route path="follow" element={<FollowPage />} />
             <Route path="thread/:id" element={<Thread />} />
             <Route path="create" element={<NewThread refetch={() => {}} />} />
-            <Route path="edit" element={<EditThread />} />
+            <Route path="edit" element={<EditThread refetch={() => {}} />} />
           </Route>
         </Route>
         <Route path="auth/register" element={<RegisterPage />} />
@@ -99,7 +99,7 @@ function App() {
         <Route path="testing" element={<Testing />} />
       </Routes>
     </Router>
-  );
+      );
 }
 
 export default App;
