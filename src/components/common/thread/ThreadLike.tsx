@@ -7,6 +7,7 @@ import { AxiosError } from "axios";
 import useAuth from "../../../features/auth/hooks/useAuth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { LikeEntity } from "../../../types/LikeEntity";
+import { useEffect, useState } from "react";
 
 interface ThreadLikeProps {
   threadId: number;
@@ -24,25 +25,52 @@ export default function ThreadLike({
     mode: "onSubmit",
   });
 
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    const checkLikeStatus = async () => {
+      try {
+        const response = await api.get(`/likes/`, {
+          params: { threadId, userId: user.id },
+        });
+        setLiked(!!response.data);
+      } catch (error) {
+        console.error("Error checking like status:", error);
+      }
+    };
+    checkLikeStatus();
+  }, [threadId, user.id]);
+
   const { mutateAsync } = useMutation<LikeEntity, AxiosError, LikeDTO>({
     mutationFn: async () => {
       const userId = Number(user.id);
-      const body = {
-        threadId,
-        userId,
-      };
-      const response = await api.post("/likes", body);
-      return response.data;
+      if (!liked) {
+        const body = {
+          threadId,
+          userId,
+        };
+        const response = await api.post("/likes", body);
+        return response.data;
+      } else {
+        const response = await api.delete("/likes", {
+          data: { threadId, userId },
+        });
+        return response.data;
+      }
     },
   });
 
   const onSubmit: SubmitHandler<LikeDTO> = async (data) => {
     try {
       await mutateAsync(data);
-      console.log("Success Like Threads!");
+      console.log(liked ? "Success Unlike Thread!" : "Success Like Thread!");
       refetch();
+      setLiked(!liked);
     } catch (error) {
-      console.error("Failed To Like The Threads:", error);
+      console.error(
+        liked ? "Failed To Unlike The Thread:" : "Failed To Like The Thread:",
+        error
+      );
     }
   };
 
@@ -54,7 +82,7 @@ export default function ThreadLike({
       cursor="pointer"
     >
       <HStack>
-        <LoveIcon />
+        <LoveIcon color={liked ? "red" : "gray.500"} />
         <Text>{totalLikes}</Text>
       </HStack>
     </FormControl>

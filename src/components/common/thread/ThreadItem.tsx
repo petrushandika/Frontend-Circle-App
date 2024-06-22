@@ -17,12 +17,13 @@ import ImageCard from "../card/CardImage";
 import { CommentIcon } from "../icon/Icon";
 import { Link } from "react-router-dom";
 import { Thread } from "../../../types/Thread";
-import ThreadCreate from "./ThreadCreate";
 import { useState } from "react";
 import ThreadEdit from "./ThreadEdit";
 import ThreadDelete from "./ThreadDelete";
 import ThreadLike from "./ThreadLike";
 import { ThreadDTO } from "../../../types/ThreadDTO";
+import ThreadReply from "./ThreadReply";
+import ReplyList from "../reply/ReplyList";
 
 const formatDate = (createdAt: string) => {
   const date = new Date(createdAt);
@@ -133,7 +134,8 @@ export default function ThreadItem({
       </HStack>
       {showThreadCreate && (
         <Box color="#FFF" width="100%" borderTop="1px solid #3F3F3F">
-          <ThreadCreate refetch={refetch} />
+          <ReplyList threadId={thread.id} userId={thread.user.id}/>
+          <ThreadReply refetch={refetch} />
         </Box>
       )}
     </VStack>
