@@ -10,5 +10,5 @@ export interface Thread {
   threadId: number;
   createdAt: string;
   updatedAt: Date;
-  user: Pick<User, 'fullName' | 'username' | 'avatar'>;
+  user: Pick<User, 'id' | 'fullName' | 'username' | 'avatar'>;
 }
