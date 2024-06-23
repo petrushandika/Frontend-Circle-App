@@ -13,6 +13,10 @@ import CardProfile from "../components/common/card/CardProfile";
 import Thread from "../components/common/thread/Thread";
 
 export default function ProfilePage() {
+  const refetch = () => {
+    console.log("Refetching data...");
+  };
+
   return (
     <Box
       color={"#FFF"}
@@ -29,7 +33,7 @@ export default function ProfilePage() {
         scrollbarWidth: "none",
       }}
     >
-      <CardProfile />
+      <CardProfile refetch={refetch} />
       <Tabs isFitted colorScheme="green">
         <TabList>
           <Tab>Post</Tab>

@@ -89,7 +89,7 @@ export default function ThreadDetail({
                   >
                     Edit
                   </MenuItem>
-                  <ThreadDelete onDelete={handleDelete} />
+                  <ThreadDelete threadId={thread.id} refetch={refetch} onDelete={handleDelete} />
                 </MenuList>
               </Menu>
             </HStack>
@@ -105,7 +105,7 @@ export default function ThreadDetail({
             )}
             <HStack color="#FFF">
               <ThreadLike
-                id={thread.id}
+                threadId={thread.id}
                 totalLikes={thread.totalLikes ?? 0}
                 refetch={refetch}
               />

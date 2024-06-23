@@ -13,13 +13,13 @@ export default function HollowButton({
       width={width}
       height={height}
       fontSize={fontSize}
-      {...props}
       color={"#FFF"}
       background={"transparent"}
       border={"1px solid #FFF"}
       borderRadius={25}
       fontWeight={"500"}
       _hover={"none"}
+      {...props}
     >
       {text}
     </Button>
