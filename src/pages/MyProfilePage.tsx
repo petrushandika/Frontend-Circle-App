@@ -20,7 +20,7 @@ export default function ProfilePage() {
   return (
     <Box
       color={"#FFF"}
-      borderRight={"1px solid #3F3F3F"}
+      borderRight={"1px solid #3F3F3F"} 
       borderLeft={"1px solid #3F3F3F"}
       width={"100%"}
       overflow={"hidden"}

@@ -94,7 +94,7 @@ export default function ThreadDetail({
               </Menu>
             </HStack>
             {isEditing ? (
-              <ThreadEdit thread={thread} onEdit={handleEdit} />
+              <ThreadEdit thread={thread} refetch={refetch} onEdit={handleEdit} />
             ) : (
               <Text color="#FFF" fontSize="sm" fontWeight={300}>
                 {thread.content}

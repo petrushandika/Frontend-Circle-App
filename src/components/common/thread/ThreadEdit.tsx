@@ -15,11 +15,12 @@ import useAuth from "../../../features/auth/hooks/useAuth";
 import { api } from "../../../configs/Api";
 import { ThreadDTO } from "../../../types/ThreadDTO";
 import { ThreadEntity } from "@/types/ThreadEntity";
+import { Thread } from "../../../types/Thread";
 
 interface ThreadEditProps {
-  thread: ThreadDTO;
+  thread: Thread;
   refetch: () => void;
-  onEdit: (updatedThread: ThreadDTO) => void;
+  onEdit: (updatedThread: Thread) => void;
 }
 
 export default function ThreadEdit({
@@ -49,7 +50,10 @@ export default function ThreadEdit({
       await mutateAsync(data);
       console.log("Success Edit Thread!");
       refetch();
-      onEdit(data);
+      onEdit({
+        ...thread,
+        content: data.content,
+      });
     } catch (error) {
       console.log("Failed Edit Thread!:", error);
     }
@@ -65,6 +69,7 @@ export default function ThreadEdit({
             fontSize={".9rem"}
             width={"100%"}
             resize="none"
+            defaultValue={thread.content}
             {...register("content")}
           />
         </VStack>
