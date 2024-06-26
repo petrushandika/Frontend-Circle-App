@@ -9,12 +9,15 @@ import {
 } from "../icon/Icon";
 import HeaderCard from "../card/CardHeader";
 import NewThread from "../../common/modals/NewThread";
+import { useDispatch } from "react-redux";
+import { LOGOUT } from "../../../features/auth/slices/authSlice";
 
 interface ThreadItemProps {
   refetch: () => void;
 }
 
 export default function SidebarItem({ refetch }: ThreadItemProps) {
+  const dispatch = useDispatch()
   return (
     <VStack
       width={"20%"}
@@ -69,12 +72,10 @@ export default function SidebarItem({ refetch }: ThreadItemProps) {
         </HStack>
       </VStack>
       <VStack width={"100%"} alignItems={"flex-start"} color={"#FFF"}>
-        <Link to="/auth/login" style={{ width: "100%" }}>
-          <HStack gap={3} fontWeight={"300"}>
+          <HStack onClick={()=> dispatch(LOGOUT())} gap={3} fontWeight={"300"}>
             <LogoutIcon fontSize={"1.5rem"} />
             <Text>Logout</Text>
           </HStack>
-        </Link>
       </VStack>
     </VStack>
   );

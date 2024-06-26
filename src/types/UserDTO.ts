@@ -3,6 +3,6 @@ export interface UserDTO {
   fullName: string;
   username: string;
   email?: string;
-  avatar?: string;
+  avatar?: string | FileList;
   bio?: string;
 }

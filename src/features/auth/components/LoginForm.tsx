@@ -7,7 +7,7 @@ import {
   FormErrorMessage,
   useToast,
 } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import CardHeader from "../../../components/common/card/CardHeader";
 import HollowInput from "../../../components/common/input/HollowInput";
@@ -37,7 +37,6 @@ export default function LoginForm() {
   const toast = useToast();
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -55,9 +54,7 @@ export default function LoginForm() {
       if (event) event.preventDefault();
       console.log("Login successful:", response.data);
 
-      if (token) {
-        localStorage.setItem("Token", token);
-      }
+      localStorage.setItem("Token", token);
 
       if (user) {
         dispatch(SET_AUTH_CHECK(user));
@@ -69,7 +66,6 @@ export default function LoginForm() {
           isClosable: true,
           position: "top",
         });
-        navigate("/");
       }
     } catch (error) {
       toast({
@@ -135,7 +131,9 @@ export default function LoginForm() {
           </FormErrorMessage>
         </FormControl>
         <Box width="100%" textAlign="end">
-          <Text>Forgot Password?</Text>
+          <Link to="/auth/forgotpassword">
+            <Text>Forgot Password?</Text>
+          </Link>
         </Box>
         <SolidButton text="Login" width="100%" type="submit" />
       </VStack>

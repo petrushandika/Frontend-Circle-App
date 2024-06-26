@@ -32,9 +32,21 @@ export const authSlice = createSlice({
       console.log(action.payload);
       state.user = action.payload;
     },
+    LOGOUT : (state) => {
+      state.user = {
+        id: "",
+        fullName: "",
+        username: "",
+        email: "",
+        avatar: "",
+        bio: "",
+      }
+
+      localStorage.removeItem("Token")
+    }
   },
 });
 
-export const { SET_AUTH_CHECK } = authSlice.actions;
+export const { SET_AUTH_CHECK , LOGOUT} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -6,6 +6,7 @@ import CardDeveloper from "../card/CardDeveloper";
 interface RightPanelItemProps {
   refetch: () => void;
 }
+
 export default function RightPanelItem({ refetch }: RightPanelItemProps) {
   return (
     <VStack

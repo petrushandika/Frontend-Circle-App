@@ -16,6 +16,7 @@ import { api } from "../../../configs/Api";
 import { ThreadDTO } from "../../../types/ThreadDTO";
 import { ThreadEntity } from "@/types/ThreadEntity";
 import { Thread } from "../../../types/Thread";
+import { useState } from "react";
 
 interface ThreadEditProps {
   thread: Thread;
@@ -33,9 +34,12 @@ export default function ThreadEdit({
     mode: "onSubmit",
   });
 
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
   const { mutateAsync } = useMutation<ThreadEntity, AxiosError, ThreadDTO>({
     mutationFn: async (updatedThread) => {
       const formData = new FormData();
+      if (updatedThread.image && typeof updatedThread.image !== 'string') formData.append("image", updatedThread.image[0])
       formData.append("content", updatedThread.content);
       const userId = Number(user.id);
       formData.append("userId", String(userId));
@@ -56,6 +60,19 @@ export default function ThreadEdit({
       });
     } catch (error) {
       console.log("Failed Edit Thread!:", error);
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewImage(null);
     }
   };
 
@@ -91,6 +108,7 @@ export default function ThreadEdit({
               height="100%"
               cursor="pointer"
               {...register("image")}
+              onChange={handleFileChange}
             />
           </Box>
           <SolidButton
@@ -102,6 +120,11 @@ export default function ThreadEdit({
           />
         </HStack>
       </HStack>
+      <VStack width="100%">
+        {previewImage && (
+          <Image borderRadius={5} src={previewImage} alt="Preview" />
+        )}
+      </VStack>
     </FormControl>
   );
 }

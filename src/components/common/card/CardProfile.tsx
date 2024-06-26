@@ -50,7 +50,6 @@ export default function CardProfile({ refetch }: CardProfileProps) {
     >
       <VStack>
         <CardHeader text="My Profile" fontSize="1rem" />
-
         {users.map((user) => (
           <CardBody refetch={refetch} key={user.id} user={user} />
         ))}

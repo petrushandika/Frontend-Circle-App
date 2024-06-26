@@ -14,11 +14,11 @@ import {
   VStack,
   Flex,
   Input,
+  Avatar,
 } from "@chakra-ui/react";
 import HollowButton from "../button/HollowButton";
 import HollowInput from "../input/HollowInput";
 import CardHeader from "../card/CardHeader";
-import CardImage from "../card/CardImage";
 import SolidButton from "../button/SolidButton";
 import { UserDTO } from "../../../types/UserDTO";
 import { UserEntity } from "../../../types/UserEntity";
@@ -28,26 +28,31 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { api } from "../../../configs/Api";
 import { AxiosError } from "axios";
 
-export default function EditProfile({
-  refetch = () => {},
-}: {
-  refetch?: () => void;
-}) {
+interface EditProfileProps {
+  refetch: () => void;
+}
+
+export default function EditProfile({ refetch }: EditProfileProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
-  const [imageSrc, setImageSrc] = useState("");
 
   const { user } = useAuth();
   const { register, handleSubmit } = useForm<UserDTO>({ mode: "onSubmit" });
 
-  const { mutateAsync } = useMutation<UserDTO, AxiosError, UserEntity>({
+  const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
+
+  const { mutateAsync } = useMutation<UserEntity, AxiosError, UserDTO>({
     mutationFn: async (updatedUser) => {
+      console.log(updatedUser);
+      
       const formData = new FormData();
+      if (updatedUser.avatar && updatedUser.avatar.length > 0) {
+        formData.append("avatar", updatedUser.avatar[0]);
+      }
       const userId = Number(user.id);
       formData.append("fullName", updatedUser.fullName);
       formData.append("username", updatedUser.username);
       if (updatedUser.bio) formData.append("bio", updatedUser.bio);
-      if (updatedUser.avatar) formData.append("avatar", updatedUser.avatar);
       const response = await api.patch(`/users/${userId}`, formData);
       return response.data;
     },
@@ -64,14 +69,18 @@ export default function EditProfile({
     }
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => setImageSrc(reader.result as string);
       reader.readAsDataURL(file);
+    } else {
+      setImageSrc(undefined);
     }
   };
+  
 
   return (
     <>
@@ -115,11 +124,10 @@ export default function EditProfile({
                       alignItems="center"
                     >
                       <Box position="relative" cursor="pointer">
-                        <CardImage src={imageSrc} size="md" />
+                        <Avatar src={imageSrc} size="md" />
                         <Input
                           type="file"
                           accept="image/*"
-                          onChange={handleImageChange}
                           opacity={0}
                           position="absolute"
                           top={0}
@@ -128,6 +136,11 @@ export default function EditProfile({
                           height="100%"
                           cursor="pointer"
                           borderRadius="50%"
+                          {...register("avatar")}
+                          onChange={e => {
+                            handleImageChange(e)
+                            register("avatar").onChange(e)
+                          }}
                         />
                       </Box>
                     </Flex>

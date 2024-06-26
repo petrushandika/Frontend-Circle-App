@@ -11,11 +11,16 @@ export default function SuggestCard() {
   async function getUsers() {
     try {
       const response = await api.get("/users");
+      console.log("API response:", response);
       setUsers(response.data.users);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
   }
+
+  const refetch = () => {
+    getUsers();
+  };
 
   useEffect(() => {
     getUsers();
@@ -37,7 +42,7 @@ export default function SuggestCard() {
       >
         <VStack gap={5}>
           {users.length > 0 ? (
-            users.map((user) => <CardAccount key={user.id} user={user} />)
+            users.map((user) => <CardAccount key={user.id} user={user} refetch={refetch} />)
           ) : (
             <Text>No suggestions available</Text>
           )}

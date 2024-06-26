@@ -1,4 +1,5 @@
 import { VStack, HStack, Text, FormControl } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import HeaderCard from "../../../components/common/card/CardHeader";
 import HollowInput from "../../../components/common/input/HollowInput";
 import SolidButton from "../../../components/common/button/SolidButton";
@@ -34,7 +35,9 @@ export default function LoginPage() {
       </VStack>
       <HStack>
         <Text>Already have an account?</Text>
-        <Text color={"#04A51E"}>Login</Text>
+        <Link to="/auth/login">
+          <Text color={"#04A51E"}>Login</Text>
+        </Link>
       </HStack>
     </VStack>
   );

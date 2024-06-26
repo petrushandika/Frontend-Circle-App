@@ -15,20 +15,21 @@ import { User } from "../types/User";
 export default function FollowPage() {
   const [users, setUsers] = useState<User[]>([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await api.get("/users");
-        if (Array.isArray(response.data.users)) {
-          setUsers(response.data.users);
-        } else {
-          console.error("Response is not an array:", response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching users:", error);
+  const refetch = async () => {
+    try {
+      const response = await api.get("/users");
+      if (Array.isArray(response.data.users)) {
+        setUsers(response.data.users);
+      } else {
+        console.error("Response is not an array:", response.data);
       }
+    } catch (error) {
+      console.error("Error fetching users:", error);
     }
-    fetchData();
+  };
+
+  useEffect(() => {
+    refetch();
   }, []);
 
   return (
@@ -57,14 +58,14 @@ export default function FollowPage() {
           <TabPanel>
             <VStack gap={5}>
               {users.map((user) => (
-                <CardAccount key={user.id} user={user} />
+                <CardAccount key={user.id} user={user} refetch={refetch} />
               ))}
             </VStack>
           </TabPanel>
           <TabPanel>
             <VStack gap={5}>
               {users.map((user) => (
-                <CardAccount key={user.id} user={user} />
+                <CardAccount key={user.id} user={user} refetch={refetch} />
               ))}
             </VStack>
           </TabPanel>
