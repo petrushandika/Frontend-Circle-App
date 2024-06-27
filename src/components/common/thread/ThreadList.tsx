@@ -1,36 +1,58 @@
 import { VStack, Text } from "@chakra-ui/react";
 import ThreadItem from "./ThreadItem";
 import { Thread } from "../../../types/Thread";
-import { api } from "../../../configs/Api";
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { ThreadDTO } from "../../../types/ThreadDTO";
+import { Reply } from "../../../types/Reply";
+import ReplyItem from "../reply/ReplyItem";
+import { api } from "../../../configs/Api";
+import { useEffect, useState } from "react";
 
-export default function ThreadList() {
-  const [error, setError] = useState<string | null>(null);
+interface ThreadListProps {
+  targetId?: number;
+  error: string | null;
+  threads?: Thread[] | undefined;
+  replies?: Reply[];
+  refetch: () => void;
+  handleEdit: (updatedThread: ThreadDTO) => void;
+  isReply?: boolean
+}
 
-  const { data: threads, refetch } = useQuery<Thread[]>({
-    queryKey: ["threads"],
-    queryFn: getThreads,
-  });
+export default function ThreadList({ targetId, error, threads, refetch, handleEdit, isReply, replies }: ThreadListProps) {
 
-  async function getThreads() {
-    try {
-      const response = await api.get("/threads");
-      return response.data.threads;
-    } catch (err) {
-      console.error("Error fetching threads:", err);
-      setError(
-        "Failed to load threads. Please check your authentication token."
-      );
-      throw new Error("Failed to fetch threads");
+  const [targetThread, setTargetThread] = useState();
+
+  useEffect(() => {
+    async function getTargetThread() {
+      const response = await api.get(`/threads/${targetId}`)
+      console.log(response);
+      setTargetThread(response.data)
     }
-  }
+    getTargetThread()
+  }, [targetId])
 
-  const handleEdit = (updatedThread: ThreadDTO) => {
-    console.log("Editing thread:", updatedThread);
-    refetch();
-  };
+  if (isReply) {
+    return (
+      <VStack width="100%">
+        {error ? (
+          <Text color="red">{error}</Text>
+        ) : <p>
+          {targetThread && <ThreadItem onEdit={handleEdit} refetch={refetch} thread={targetThread} />}
+          {
+            replies &&
+            replies.map((reply) => {
+              console.log(reply);
+              return <ReplyItem
+                key={reply.id}
+                reply={reply}
+                refetch={refetch}
+                onEdit={handleEdit}
+              />
+            })
+          }
+        </p>}
+      </VStack>
+    );
+  }
 
   return (
     <VStack width="100%">
