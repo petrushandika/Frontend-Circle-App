@@ -37,8 +37,8 @@ const formatDate = (createdAt: string) => {
 
 interface ThreadItemProps {
   thread: Thread;
-  refetch: () => void;
-  onEdit: (updatedThread: ThreadDTO) => void;
+  refetch?: () => void;
+  onEdit?: (updatedThread: ThreadDTO) => void;
 }
 
 export default function ThreadItem({
@@ -55,89 +55,93 @@ export default function ThreadItem({
 
   const handleEdit = (updatedThread: ThreadDTO) => {
     setIsEditing(false);
-    onEdit(updatedThread);
+    if (onEdit) {
+      onEdit(updatedThread);
+    }
   };
 
   const handleDelete = () => {
     console.log("Delete function triggered");
   };
 
-  return (
-    <VStack
-      width="100%"
-      borderBottom="1px solid #3F3F3F"
-      alignItems="flex-start"
-    >
-      <HStack alignItems="flex-start" spacing={4} padding={5}>
-        <ImageCard src={thread.user.avatar} />
-        <VStack align="flex-start" spacing={2} width="100%">
-          <HStack justifyContent="space-between" width="100%">
-            <HStack>
-              <Text color="#FFF" fontSize="sm" fontWeight={400}>
-                {thread.user.fullName}
-              </Text>
-              <Text color="#909090" fontSize="sm" fontWeight={400}>
-                @{thread.user.username} • {formatDate(thread.createdAt)}
-              </Text>
-            </HStack>
-            <Menu>
-              <Tooltip aria-label="Options">
-                <MenuButton
-                  as={IconButton}
-                  icon={<FiMoreVertical />}
-                  aria-label="Options"
-                  variant="unstyled"
-                  _hover={{ bg: "transparent" }}
-                  _active={{ bg: "transparent" }}
-                  color="white"
-                />
-              </Tooltip>
-              <MenuList color="#000">
-                <MenuItem
-                  icon={<EditIcon />}
-                  onClick={() => setIsEditing(true)}
-                >
-                  Edit
-                </MenuItem>
-                <ThreadDelete
-                  threadId={thread.id}
-                  onDelete={handleDelete}
-                  refetch={refetch}
-                />
-              </MenuList>
-            </Menu>
-          </HStack>
-          {isEditing ? (
-            <ThreadEdit thread={thread} onEdit={handleEdit} refetch={refetch} />
-          ) : (
-            <Text color="#FFF" fontSize="sm" fontWeight={300}>
-              {thread.content}
-            </Text>
-          )}
-          {thread.image && (
-            <Image src={thread.image} mt={2} borderRadius="md" />
-          )}
-          <HStack color="#FFF">
-            <ThreadLike
-              threadId={thread.id}
-              totalLikes={thread.totalLikes ?? 0}
-              refetch={refetch}
-            />
-            <Link to={`/thread/${thread.id}`} onClick={toggleThreadCreate}>
+  if (refetch && onEdit) {
+    return (
+      <VStack
+        width="100%"
+        borderBottom="1px solid #3F3F3F"
+        alignItems="flex-start"
+      >
+        <HStack alignItems="flex-start" spacing={4} padding={5}>
+          <ImageCard src={thread.user.avatar} />
+          <VStack align="flex-start" spacing={2} width="100%">
+            <HStack justifyContent="space-between" width="100%">
               <HStack>
-                <CommentIcon />
-                <Text>{thread.totalReplies}</Text>
+                <Text color="#FFF" fontSize="sm" fontWeight={400}>
+                  {thread.user.fullName}
+                </Text>
+                <Text color="#909090" fontSize="sm" fontWeight={400}>
+                  @{thread.user.username} • {formatDate(thread.createdAt)}
+                </Text>
               </HStack>
-            </Link>
-          </HStack>
-        </VStack>
-      </HStack>
-      {showThreadCreate && (
-        <Box color="#FFF" width="100%" borderTop="1px solid #3F3F3F">
-          <ReplyList threadId={thread.id} userId={thread.user.id}/>
-          <ThreadReply refetch={refetch} />
-        </Box>
-      )}
-    </VStack>
-  );
+              <Menu>
+                <Tooltip aria-label="Options">
+                  <MenuButton
+                    as={IconButton}
+                    icon={<FiMoreVertical />}
+                    aria-label="Options"
+                    variant="unstyled"
+                    _hover={{ bg: "transparent" }}
+                    _active={{ bg: "transparent" }}
+                    color="white"
+                  />
+                </Tooltip>
+                <MenuList color="#000">
+                  <MenuItem
+                    icon={<EditIcon />}
+                    onClick={() => setIsEditing(true)}
+                  >
+                    Edit
+                  </MenuItem>
+                  <ThreadDelete
+                    threadId={thread.id}
+                    onDelete={handleDelete}
+                    refetch={refetch}
+                  />
+                </MenuList>
+              </Menu>
+            </HStack>
+            {isEditing ? (
+              <ThreadEdit thread={thread} onEdit={handleEdit} refetch={refetch} />
+            ) : (
+              <Text color="#FFF" fontSize="sm" fontWeight={300}>
+                {thread.content}
+              </Text>
+            )}
+            {thread.image && (
+              <Image src={thread.image} mt={2} borderRadius="md" />
+            )}
+            <HStack color="#FFF">
+              <ThreadLike
+                threadId={thread.id}
+                totalLikes={thread.totalLikes ?? 0}
+                refetch={refetch}
+              />
+              <Link to={`/thread/${thread.id}`} onClick={toggleThreadCreate}>
+                <HStack>
+                  <CommentIcon />
+                  <Text>{thread.totalReplies}</Text>
+                </HStack>
+              </Link>
+            </HStack>
+          </VStack>
+        </HStack>
+        {showThreadCreate && (
+          <Box color="#FFF" width="100%" borderTop="1px solid #3F3F3F">
+            <ReplyList threadId={thread.id} userId={thread.user.id} />
+            <ThreadReply refetch={refetch} />
+          </Box>
+        )}
+      </VStack>
+    );
+  }
 }
