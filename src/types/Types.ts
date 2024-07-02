@@ -1,59 +1,104 @@
-import { IconType } from "react-icons";
-
-export interface ButtonProps {
-  width?: string | number;
-  height?: string | number;
-  fontSize?: string | number;
-  text?: string;
-  onClick?: () => void;
-  type?: "button" | "submit" | "reset";
+export interface UserType {
+    id: number
+    username: string
+    name: string
+    email: string
+    avatar: string
+    banner: string
+    bio: string | null
+    followers: FollowType[]
+    followings: FollowType[]
+    totalFollower: number
+    totalFollowing: number
+    isFollowed: boolean
+    vibes: VibeType[]
+    filterContent: boolean
 }
 
-export interface CardProps {
-  color?: string;
-  fontSize?: string | number;
-  fontWeight?: string | number;
-  padding?: string | number;
-  text?: string;
+export interface VibeType {
+    id: number
+    content: string
+    image: string | null
+    createdAt: string
+    authorId: number
+    totalReplies: number
+    totalLikes: number
+    isLiked: boolean
+    badLabels: string[]
+    author: UserType | undefined
 }
 
-export interface IconProps {
-  icon: IconType;
-  fontSize?: string | number;
-  color?: string;
+export interface DetailedVibeType extends VibeType {
+    replies: VibeType[]
+    likes: LikeType[]
 }
 
-export interface InputProps {
-  borderRadius?: string | number;
-  pl?: string | number;
-  placeholder?: string;
-  type?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  name?: string;
+export interface FollowType {
+    id: number
+    targetId: number
+    ownerId: number
 }
 
-export interface ThreadData {
-  id: number;
-  image: string;
-  name: string;
-  tag: string;
-  time: string;
-  content: string;
-  imageUrl?: string;
-  like: number;
-  reply: number;
+export interface LikeType {
+    id: number
+    authorId: number
+    targetId: number
 }
 
-export interface ThreadListProps {
-  id?: number | number[];
+export interface ReplyType {
+    id: number
+    image: string | null
+    content: string
+    authorId: number
+    targetId: number
 }
 
-// export interface Thread {
-//   id: number;
-//   content: string;
-//   image: string;
-//   totalLikes: number;
-//   totalReplies: number;
-//   createdAt: Date;
-// }
+export interface RegisterDataType {
+    username: string
+    name: string
+    email: string
+    password: string
+}
+
+export interface LoginDataType {
+    username: string
+    password: string
+}
+
+export interface ForgotDataType {
+    email: string
+}
+
+export interface ResetDataType {
+    newPassword: string
+    confirmedPassword: string
+    general?: string
+}
+export interface EditUserDataType {
+    name: string
+    username: string
+    filterContent: boolean
+    bio: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    avatar: any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    banner: any
+}
+
+export interface EditedUserType {
+    id: number
+    username: string
+    name: string
+    email: string
+    filterContent: boolean
+    avatar: string
+    banner: string
+    bio: string | null
+}
+
+export interface VibeDataType {
+    content: string
+    badLabels: string[]
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    image: any
+}

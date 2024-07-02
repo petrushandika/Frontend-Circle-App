@@ -1,72 +1,74 @@
-import { Box, VStack } from "@chakra-ui/react";
-// import Thread from "../components/common/thread/Thread";
-import ThreadCreate from "../components/common/thread/ThreadCreate";
-import CardHeader from "../components/common/card/CardHeader";
-import { Thread } from "../../src/types/Thread";
-import { api } from "../configs/Api";
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { ThreadDTO } from "../../src/types/ThreadDTO";
-import ThreadList from "../components/common/thread/ThreadList";
+import { Box, Grid, GridItem } from '@chakra-ui/react'
+import { useVibes } from '@/hooks/useVibes'
 
-export default function HomePages() {
-  const refetchThreads = () => {
-    console.log("Refetching threads...");
-  };
+import MainBar from '@/components/bars/MainBar'
+import SideBar from '@/components/bars/SideBar'
+import ProfileCard from '@/components/cards/ProfileCard'
+import SuggestionCard from '@/components/cards/SuggestionCard'
+import DeveloperCard from '@/components/cards/DeveloperCard'
+import VibeList from '@/components/vibes/VibeList'
+import NewVibe from '@/components/vibes/NewVibe'
+import NavigationHeading from '@/components/navigations/NavigationHeading'
+import CircleSpinner from '@/components/utils/CircleSpinner'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/redux'
+import { useEffect, useState } from 'react'
+import { VibeType } from '@/types/types'
 
-  const [error, setError] = useState<string | null>(null);
+function HomePage() {
+    const loggedUser = useSelector((states: RootState) => states.loggedUser.value)
 
-  const { data: threads, refetch } = useQuery<Thread[]>({
-    queryKey: ["threads"],
-    queryFn: getThreads,
-  });
+    const [vibes, onPost] = useVibes()
+    const [preparedVibes, setPreparedVibes] = useState<VibeType[]>([])
 
-  async function getThreads() {
-    try {
-      const response = await api.get("/threads");
-      return response.data.threads;
-    } catch (err) {
-      console.error("Error fetching threads:", err);
-      setError(
-        "Failed to load threads. Please check your authentication token."
-      );
-      throw new Error("Failed to fetch threads");
-    }
-  }
+    useEffect(() => {
+        if (!loggedUser?.filterContent) {
+            setPreparedVibes(() => {
+                if (vibes) {
+                    return vibes.filter((vibe) => !vibe.badLabels.length)
+                }
 
-  const handleEdit = (updatedThread: ThreadDTO) => {
-    console.log("Editing thread:", updatedThread);
-    refetch();
-  };
+                return []
+            })
+        } else {
+            setPreparedVibes(() => {
+                if (vibes) {
+                    return vibes
+                }
 
-  return (
-    <Box
-      color={"#FFF"}
-      borderRight={"1px solid #3F3F3F"}
-      borderLeft={"1px solid #3F3F3F"}
-      width={"100%"}
-      overflow={"hidden"}
-      height={"100vh"}
-      overflowY="auto"
-      sx={{
-        "&::-webkit-scrollbar": {
-          display: "none",
-        },
-        scrollbarWidth: "none",
-      }}
-    >
-      <VStack>
-        <VStack width={"100%"} borderBottom={"1px solid #3F3F3F"}>
-          <CardHeader
-            text="Home"
-            padding={"30px 0 0 20px"}
-            fontSize={25}
-            fontWeight={"400"}
-          />
-          <ThreadCreate refetch={refetchThreads} />
-        </VStack>
-        <ThreadList error={error} refetch={refetch} handleEdit={handleEdit} threads={threads} />
-      </VStack>
-    </Box>
-  );
+                return []
+            })
+        }
+    }, [vibes, loggedUser])
+
+    return (
+        <Grid templateColumns={'repeat(19, 1fr)'}>
+            <GridItem colSpan={12}>
+                <MainBar>
+                    <NavigationHeading text={'Home'} disabled />
+                    <NewVibe
+                        placeholder={"What's on your mind?"}
+                        imagePreviewId={'atHome'}
+                        onPost={onPost}
+                    />
+                    {preparedVibes.length ? (
+                        <VibeList vibes={preparedVibes} />
+                    ) : (
+                        <Box mt={'3rem'}>
+                            <CircleSpinner />
+                        </Box>
+                    )}
+                </MainBar>
+            </GridItem>
+            <GridItem colSpan={7}>
+                <SideBar>
+                    <ProfileCard />
+                    <SuggestionCard />
+                    <DeveloperCard />
+                </SideBar>
+            </GridItem>
+        </Grid>
+    )
 }
+
+export default HomePage

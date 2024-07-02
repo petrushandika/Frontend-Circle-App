@@ -1,84 +1,106 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  Route,
-  BrowserRouter as Router,
-  Routes
-} from "react-router-dom";
-import EditThread from "./components/common/modals/EditProfile";
-import NewThread from "./components/common/modals/NewThread";
-import Thread from "./components/common/thread/Thread";
-import { api } from "./configs/Api";
-import ForgotPasswordPage from "./features/auth/pages/ForgotPasswordPage";
-import LoginPage from "./features/auth/pages/LoginPage";
-import RegisterPage from "./features/auth/pages/RegisterPage";
-import { SET_AUTH_CHECK } from "./features/auth/slices/authSlice";
-import RootLayout from "./layouts/CircleLayout";
-import FollowPage from "./pages/FollowPage";
-import HomePages from "./pages/HomePage";
-import ProfilePage from "./pages/ProfilePage";
-import SearchPage from "./pages/SearchPage";
-import { Testing } from "./test/Testing";
-import AuthLayout from "./layouts/AuthLayout";
+import { useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/redux'
+import { setPreloaded } from '@/features/preloaded/preloadedSlice'
+import { UserType } from '@/types/types'
+import { setLoggedUser, unsetLoggedUser } from '@/features/auth/authSlice'
+
+import './assets/base.css'
+import API from '@/networks/api'
+import CircleLayout from './layouts/CircleLayout'
+import HomePage from './pages/HomePage'
+import VibeDetailPage from './pages/VibeDetailPage'
+import MePage from './pages/MePage'
+import SearchPage from '@/pages/SearchPage'
+import LoginPage from '@/pages/LoginPage'
+import RegisterPage from '@/pages/RegisterPage'
+import ForgotPasswordPage from '@/pages/ForgotPasswordPage'
+import ResetPasswordPage from '@/pages/ResetPasswordPage'
+import FollowsPage from '@/pages/FollowsPage'
+import SplashScreen from '@/components/utils/SplashScreen'
+import CircleAlert from '@/components/utils/CircleAlert'
+import ProfilePage from '@/pages/ProfilePage'
 
 function App() {
-  const dispatch = useDispatch();
+    const isPreloaded = useSelector((states: RootState) => states.isPreloaded.value)
+    const loggedUser = useSelector((states: RootState) => states.loggedUser.value)
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+    const { pathname } = useLocation()
+    const dispatch = useDispatch()
 
-  async function authCheck() {
-    try {
-      setIsLoading(true)
-      const response = await api.get(
-        "auth/check",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("Token")}`,
-          },
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth',
+        })
+    }, [pathname])
+
+    useEffect(() => {
+        async function isUserLogged() {
+            try {
+                const loggedUser: UserType = await API.GET_LOGGED_USER()
+
+                dispatch(setLoggedUser(loggedUser))
+            } catch (error) {
+                dispatch(unsetLoggedUser())
+            } finally {
+                // might be deleted later XD
+                setTimeout(() => {
+                    dispatch(setPreloaded(false))
+                }, 2000)
+            }
         }
-      );
-      dispatch(SET_AUTH_CHECK(response.data));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false)
+
+        isUserLogged()
+    }, [dispatch])
+
+    if (window.innerWidth < 1280) {
+        return (
+            <div className="app">
+                <CircleAlert />
+            </div>
+        )
     }
-  }
 
-  useEffect(() => {
-    const token = localStorage.getItem("Token");
-    console.log(token);
-
-    if (token) {
-      authCheck();
+    if (isPreloaded) {
+        return (
+            <div className="app">
+                <SplashScreen />
+            </div>
+        )
     }
-  }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+    if (!loggedUser) {
+        return (
+            <div className="app">
+                <Routes>
+                    <Route path="/*" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/help/forgot" element={<ForgotPasswordPage />} />
+                    <Route path="/help/reset/:token" element={<ResetPasswordPage />} />
+                </Routes>
+            </div>
+        )
+    }
 
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<RootLayout />}>
-          <Route index element={<HomePages />} />
-          <Route path="me" element={<ProfilePage />} />
-          <Route path="search" element={<SearchPage />} />
-          <Route path="follow" element={<FollowPage />} />
-          <Route path="thread/:id" element={<Thread />} />
-          <Route path="create" element={<NewThread refetch={() => { }} />} />
-          <Route path="edit" element={<EditThread refetch={() => { }} />} />
-        </Route>
-        <Route path="/auth" element={<AuthLayout />}>
-          <Route path="register" element={<RegisterPage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="forgotpassword" element={<ForgotPasswordPage />} />
-        </Route>
-        <Route path="testing" element={<Testing />} />
-      </Routes>
-    </Router>
-  );
+    return (
+        <div className="app">
+            <Routes>
+                <Route path="/" element={<CircleLayout />}>
+                    <Route index element={<HomePage />} />
+                    <Route path="/vibe/:id" element={<VibeDetailPage />} />
+                    <Route path="/user/:id" element={<ProfilePage />} />
+                    <Route path="/me" element={<MePage />} />
+                    <Route path="/follows" element={<FollowsPage />} />
+                    <Route path="/search" element={<SearchPage />} />
+                </Route>
+                <Route path="*" element={<CircleAlert code={404} />} />
+                <Route element={<CircleAlert code={404} />} />
+            </Routes>
+        </div>
+    )
 }
 
-export default App;
+export default App
