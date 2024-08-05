@@ -10,7 +10,7 @@ function DeveloperCard() {
         <BrandCard>
             <Flex color={'circle.dark'} alignItems={'center'} gap={'.25rem'} mb={'.25rem'}>
                 <Text color={'circle.font'} fontSize={fontSizing.small}>
-                    Developed by @arrdix
+                    Developed by @petrus
                 </Text>
                 <Text color={'circle.dark'} fontSize={fontSizing.small}>
                     •
